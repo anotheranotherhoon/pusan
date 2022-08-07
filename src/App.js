@@ -1,22 +1,18 @@
-import { useSelector, useDispatch } from 'react-redux';
+import {useDispatch } from 'react-redux';
 import { fetchRestaurant } from './redux/restaurantReducer'
 import { fetchFestival } from './redux/festivalReducer'
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
+import ThemeProvider from './context/themeProvider';
 import { GlobalStyle } from './theme/GlobalStyle';
-import { darkTheme, lightTheme } from './theme/theme'
 import Router from './Router';
 import Nav from './components/Nav';
 import Title from './components/Title'
+
 const serviceKey = process.env.REACT_APP_SERVICE_KEY
+
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const toggleDarkMode = () => {
-    setIsDarkMode((prev) => !prev);
-  };
-  
   const dispatch = useDispatch();
   useEffect(() => {
     async function fetchRestaurantData() {
@@ -42,16 +38,12 @@ function App() {
     fetchRestaurantData()
     fetchFestivalData()
   }, [dispatch])
-  const handleNav = (e) => {
-    console.log(e.target)
-  }
   return (
     <BrowserRouter>
-      <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+      <ThemeProvider >
         <GlobalStyle />
         <Title />
-        <Nav handleNav={handleNav} />
-        hello
+        <Nav/>
         <Router />
       </ThemeProvider>
     </BrowserRouter>

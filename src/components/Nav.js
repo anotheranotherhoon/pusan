@@ -1,5 +1,8 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom";
+import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
+import { useTheme } from "../context/themeProvider";
+
 
 const NavContainer = styled.ul`
     display:flex;
@@ -21,13 +24,16 @@ const LinkTo = styled(Link)`
     text-align:center;
 `
 
+
 const Nav = () => {
+    const [themeMode, toggleTheme] = useTheme()
     return(
         <NavContainer>
             <NavItem ><LinkTo to="/review">review</LinkTo></NavItem>
             <NavItem><LinkTo to="/wishtogo">wishToGo</LinkTo></NavItem>
             <NavItem ><LinkTo to="/festival">축제</LinkTo></NavItem>
             <NavItem ><LinkTo to="/restaurant">맛집</LinkTo></NavItem>
+            <NavItem onClick={toggleTheme}>{themeMode==='light' ? <BsFillSunFill /> : <BsFillMoonFill />}</NavItem>
         </NavContainer>
     )
 }
