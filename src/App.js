@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     async function fetchRestaurantData() {
       return axios
-        .get(`https://pusanohmypusan.herokuapp.com/apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=${serviceKey}&resultType=json&numOfRows=149`)
+        .get(`https://pusanohmypusan.herokuapp.com/http://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=${serviceKey}&resultType=json&numOfRows=149`)
         .then((res) => {
           dispatch(fetchRestaurant(res.data.getFoodKr.item))
         })
@@ -28,7 +28,7 @@ function App() {
     }
     async function fetchFestivalData() {
       return axios
-        .get(`https://pusanohmypusan.herokuapp.com/apis.data.go.kr/6260000/FestivalService/getFestivalKr?serviceKey=${serviceKey}&resultType=json&numOfRows=30`)
+        .get(`https://pusanohmypusan.herokuapp.com/http://apis.data.go.kr/6260000/FestivalService/getFestivalKr?serviceKey=${serviceKey}&resultType=json&numOfRows=30`)
         .then((res) => {
           dispatch(fetchFestival(res.data.getFestivalKr.item))
         })
