@@ -32,9 +32,6 @@ function useTheme (){
     }
     return [themeMode, toggleTheme];
 }
-
-
-
 export { ThemeProvider, useTheme };
 
 export default ThemeProvider
