@@ -9,6 +9,7 @@ import { GlobalStyle } from './theme/GlobalStyle';
 import Router from './Router';
 import Nav from './components/Nav';
 import Title from './components/Title'
+import ScrollToTop from './components/ScrollToTop';
 
 const serviceKey = process.env.REACT_APP_SERVICE_KEY
 
@@ -44,6 +45,7 @@ function App() {
         <GlobalStyle />
         <Title />
         <Nav/>
+        <ScrollToTop/>
         <Router />
       </ThemeProvider>
     </BrowserRouter>
