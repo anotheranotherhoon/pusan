@@ -16,8 +16,8 @@ const serviceKey = process.env.REACT_APP_SERVICE_KEY
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    async function fetchRestaurantData() {
-      return axios
+    const fetchRestaurantData = async() => {
+      return await axios
         .get(`https://pusanohmypusan.herokuapp.com/http://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=${serviceKey}&resultType=json&numOfRows=149`)
         .then((res) => {
           dispatch(fetchRestaurant(res.data.getFoodKr.item))
@@ -26,8 +26,8 @@ function App() {
           console.log(error)
         })
     }
-    async function fetchFestivalData() {
-      return axios
+    const fetchFestivalData = async() => {
+      return await axios
         .get(`https://pusanohmypusan.herokuapp.com/http://apis.data.go.kr/6260000/FestivalService/getFestivalKr?serviceKey=${serviceKey}&resultType=json&numOfRows=30`)
         .then((res) => {
           dispatch(fetchFestival(res.data.getFestivalKr.item))
