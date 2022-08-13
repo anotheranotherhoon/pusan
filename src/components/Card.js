@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 const Card = (props) => {
     return(
         <div key={props.data.UC_SEQ} >

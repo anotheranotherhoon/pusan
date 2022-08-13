@@ -11,14 +11,15 @@ import Nav from './components/Nav';
 import Title from './components/Title'
 import ScrollToTop from './components/ScrollToTop';
 
-const serviceKey = process.env.REACT_APP_SERVICE_KEY
 
+
+const serviceKey = process.env.REACT_APP_SERVICE_KEY
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchRestaurantData = async() => {
       return await axios
-        .get(`https://pusanohmypusan.herokuapp.com/http://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=${serviceKey}&resultType=json&numOfRows=149`,{
+        .get(`https://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=${serviceKey}&resultType=json&numOfRows=149`,{
           headers: {
             'Content-Type': 'application/json'
             }
@@ -32,7 +33,7 @@ function App() {
     }
     const fetchFestivalData = async() => {
       return await axios
-        .get(`https://pusanohmypusan.herokuapp.com/http://apis.data.go.kr/6260000/FestivalService/getFestivalKr?serviceKey=${serviceKey}&resultType=json&numOfRows=30`,{
+        .get(`https://apis.data.go.kr/6260000/FestivalService/getFestivalKr?serviceKey=aq8sYaH34Y%2BsCLkpFAAApTVKwdrQx1uzzu20XopOisJqIeZ0daJUTV6xBr2D061DFF41yMuVZvge2kcn6%2FfbMA%3D%3D&resultType=json&numOfRows=30`,{
           headers: {
             'Content-Type': 'application/json'
             }
@@ -49,13 +50,13 @@ function App() {
   }, [dispatch])
   return (
     <BrowserRouter>
-      <ThemeProvider >
-        <GlobalStyle />
-        <Title />
-        <Nav/>
-        <ScrollToTop/>
-        <Router />
-      </ThemeProvider>
+        <ThemeProvider >
+          <GlobalStyle />
+          <Title />
+          <Nav/>
+          <ScrollToTop/>
+          <Router />
+        </ThemeProvider>
     </BrowserRouter>
   );
 }

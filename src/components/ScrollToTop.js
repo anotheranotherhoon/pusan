@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from "react";
-import styled, { ThemeContext } from "styled-components";
+import { useState, useEffect } from "react";
+import styled from "styled-components";
 import { useTheme } from "../context/themeProvider";
 
 
