@@ -1,18 +1,26 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate} from "react-router-dom"
 import Home from "./routes/Home"
 import Restaurant from "./routes/Restaurant"
 import Festival from "./routes/Festival"
 import WishToGo from "./routes/WishToGo"
 import Profile from "./routes/Profile"
+import { useSelector } from "react-redux"
 
 const Router = () => {
+    const state = useSelector((state) => state.authReducer)
+    const {token, isLoggedIn} = state
     return (
             <Routes>
                 <Route path="/" element ={<Home />}/>
-                <Route path="/restaurant" element ={<Restaurant />}/>
-                <Route path="/festival" element ={<Festival />}/>
-                <Route path="/wishtogo" element ={<WishToGo/>}/>
-                <Route path="/profile" element ={<Profile />} />
+                {isLoggedIn&&(
+                    <>
+                        <Route path="/restaurant" element ={<Restaurant />}/>
+                        <Route path="/festival" element ={<Festival />}/>
+                        <Route path="/wishtogo" element ={<WishToGo/>}/>
+                        <Route path="/profile" element ={<Profile />} />
+                    </>
+                )}
+                <Route path='*' element={<Navigate replace to="/"/>}/>
             </Routes>
     )
 }
