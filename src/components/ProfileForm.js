@@ -1,13 +1,14 @@
 import styled from "styled-components"
-import { useTheme } from "../context/themeProvider"
 import { useRef } from "react"
-import axios from "axios"
-import { useSelector } from "react-redux"
-
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom";
+import { logout } from "../redux/authReducer";
 const ProfileForm = () => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const firebaseKey = process.env.REACT_APP_FIREBASE_KEY
     const newPasswordInputRef = useRef()
-    const [themeMode] = useTheme()
+    const themeState = useSelector((state) => state.themeReducer)
     const state = useSelector((state) => state.authReducer)
     const { token, isLoggedIn } = state
     const submitHandler = (event) => {
@@ -28,18 +29,17 @@ const ProfileForm = () => {
                 'Content-Type': 'application/json'
             }
         }).then(res => {
-            // assumption: Always succeeds!
-
-
+            dispatch(logout())
+            navigate('/')
         });
     };
     return (
-        <ProfileForms themeMode={themeMode} onSubmit={submitHandler}>
-            <ProfileControl themeMode={themeMode}>
+        <ProfileForms themeState={themeState} onSubmit={submitHandler}>
+            <ProfileControl themeState={themeState}>
                 <label htmlFor='new-password'>New Password</label>
                 <input type='password' id='new-password' minLength='7' ref={newPasswordInputRef} />
             </ProfileControl >
-            <ProfileAction themeMode={themeMode}>
+            <ProfileAction themeState={themeState}>
                 <button>Change Password</button>
             </ProfileAction>
         </ProfileForms>
@@ -57,7 +57,7 @@ const ProfileControl = styled.div`
     label {
         font-weight: bold;
         margin-bottom: 0.5rem;
-        color: ${(props) => props.themeMode === 'light' ? 'black' : 'white'};
+        color: ${(props) => props.themeState === 'light' ? 'black' : 'white'};
         display: block;
     }
     input {
@@ -67,7 +67,7 @@ const ProfileControl = styled.div`
         border-radius: 4px;
         border: 1px solid #38015c;
         padding: 0.25rem;
-        background-color: ${(props) => props.themeMode === 'light' ? 'white' : 'grey'};
+        background-color: ${(props) => props.themeState === 'light' ? 'white' : 'grey'};
     }
 `
 const ProfileAction = styled.div`
@@ -77,11 +77,11 @@ const ProfileAction = styled.div`
             cursor: pointer;
             padding: 0.5rem 1.5rem;
             border-radius: 4px;
-            background-color: ${(props) => props.themeMode === 'light' ? '#489572' : 'grey'};
-            color: ${(props) => props.themeMode === 'light' ? 'white' : 'black'};
+            background-color: ${(props) => props.themeState === 'light' ? '#489572' : 'grey'};
+            color: ${(props) => props.themeState === 'light' ? 'white' : 'black'};
             border: 1px solid #38015c;
             &:hover{
-                background-color:${(props) => props.themeMode === 'light' ? '#489572' : 'grey'};
+                background-color:${(props) => props.themeState === 'light' ? '#489572' : 'grey'};
                 border-color: #540d83;
             }
         }

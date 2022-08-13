@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useTheme } from "../context/themeProvider";
+
 
 
 const ScrollToTop = () => {
-    const [themeMode] = useTheme()
+    const themeState = useSelector((state) => state.themeReducer)
     const [scrollY, setScrollY] = useState(0);
     const [BtnStatus, setBtnStatus] = useState(false);
     const handleFollow = () => {
@@ -36,7 +37,7 @@ const ScrollToTop = () => {
         }
     })
     return (
-            <TopBtn className={BtnStatus ? "topBtn active" : "topBtn"} onClick={handleTop} themeMode={themeMode} >TOP</TopBtn>
+            <TopBtn className={BtnStatus ? "topBtn active" : "topBtn"} onClick={handleTop} themeState={themeState} >TOP</TopBtn>
     )
 }
 
@@ -50,8 +51,8 @@ const TopBtn = styled.button`
     height: 50px;
     border-radius: 100%;
     border: 0 none;
-    background: ${(props) => props.themeMode === 'light' ? 'darkslategrey': 'grey'};
-    color:${(props) => props.themeMode === 'light' ? 'white': 'black'};
+    background: ${(props) => props.themeState === 'light' ? 'darkslategrey': 'grey'};
+    color:${(props) => props.themeState === 'light' ? 'white': 'black'};
     border: 2px solid white;
     font-size: 18px;
     font-weight: bold;

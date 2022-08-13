@@ -4,7 +4,6 @@ import AuthForm from "../components/AuthForm"
 const Home = () => {
     const state = useSelector((state) => state.authReducer)
     const {token, isLoggedIn} = state
-    console.log(isLoggedIn)
     return (
         <>
         {isLoggedIn&&(

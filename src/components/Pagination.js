@@ -1,13 +1,13 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useTheme } from "../context/themeProvider";
 
 function Pagination({ total, limit, page, setPage }) {
-    const [themeMode] = useTheme()
+    const themeState = useSelector((state) => state.themeReducer)
     const numPages = Math.ceil(total / limit);
     return (
         <>
             <Nav>
-                <Button onClick={() => setPage(page - 1)} disabled={page === 1} themeMode={themeMode}> 
+                <Button onClick={() => setPage(page - 1)} disabled={page === 1} themeState={themeState}> 
                     &lt;
                 </Button>
                 {Array(numPages)
@@ -17,12 +17,12 @@ function Pagination({ total, limit, page, setPage }) {
                             key={i + 1}
                             onClick={() => setPage(i + 1)}
                             aria-current={page === i + 1 ? "page" : null}
-                            themeMode={themeMode}
+                            themeState={themeState}
                         >
                             {i + 1}
                         </Button>
                     ))}
-                <Button onClick={() => setPage(page + 1)} disabled={page === numPages} themeMode={themeMode}>
+                <Button onClick={() => setPage(page + 1)} disabled={page === numPages} themeState={themeState}>
                     &gt;
                 </Button>
             </Nav>
@@ -43,8 +43,8 @@ const Button = styled.button`
     border-radius: 8px;
     padding: 8px;
     margin: 0;
-    background: ${(props) => props.themeMode === 'light' ? 'darkslategrey': 'grey'};
-    color:${(props) => props.themeMode === 'light' ? 'white': 'black'};
+    background: ${(props) => props.themeState === 'light' ? 'darkslategrey': 'grey'};
+    color:${(props) => props.themeState === 'light' ? 'white': 'black'};
     font-size: 1rem;
 
     &:hover {
@@ -54,7 +54,7 @@ const Button = styled.button`
     }
 
     &[disabled] {
-        background: ${(props) => props.themeMode === 'light' ? 'darkslategrey': 'grey'};
+        background: ${(props) => props.themeState === 'light' ? 'darkslategrey': 'grey'};
         cursor: revert;
         transform: revert;
     }

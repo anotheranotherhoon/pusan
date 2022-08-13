@@ -1,20 +1,21 @@
-import {useDispatch } from 'react-redux';
+import {useDispatch, useSelector } from 'react-redux';
 import { fetchRestaurant } from './redux/restaurantReducer'
 import { fetchFestival } from './redux/festivalReducer'
 import { useEffect} from 'react';
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
-import ThemeProvider from './context/themeProvider';
 import { GlobalStyle } from './theme/GlobalStyle';
 import Router from './Router';
 import Nav from './components/Nav';
 import Title from './components/Title'
 import ScrollToTop from './components/ScrollToTop';
-
-
+import { darkTheme, lightTheme } from './theme/theme';
 
 const serviceKey = process.env.REACT_APP_SERVICE_KEY
 function App() {
+  const state = useSelector((state)=> state.themeReducer)
+  const themeObject = state.theme === 'light' ? lightTheme : darkTheme;
+  console.log(themeObject)
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchRestaurantData = async() => {
@@ -50,13 +51,11 @@ function App() {
   }, [dispatch])
   return (
     <BrowserRouter>
-        <ThemeProvider >
-          <GlobalStyle />
+      <GlobalStyle theme={themeObject}/>
           <Title />
           <Nav/>
           <ScrollToTop/>
           <Router />
-        </ThemeProvider>
     </BrowserRouter>
   );
 }

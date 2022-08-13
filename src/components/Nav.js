@@ -1,9 +1,9 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom";
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
-import { useTheme } from "../context/themeProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/authReducer";
+import {toggleTheme} from "../redux/themeReducer"
 import { useNavigate } from "react-router-dom";
 
 const NavContainer = styled.ul`
@@ -33,11 +33,14 @@ const LogoutBtn = styled.div`
 
 const Nav = () => {
     const navigate = useNavigate()
-    const [themeMode, toggleTheme] = useTheme()
+    const themeState = useSelector((state) => state.themeReducer)
+    console.log(themeState)
     const state = useSelector((state) => state.authReducer)
     const {token, isLoggedIn} = state
     const dispatch = useDispatch();
-
+    const handleToggleTheme = () => {
+        dispatch(toggleTheme())
+    }
     const handleLogout = () => {
         dispatch(logout())
         navigate('/')
@@ -52,10 +55,10 @@ const Nav = () => {
                     <NavItem><LinkTo to="/wishtogo">wishToGo</LinkTo></NavItem>
                     <NavItem><LinkTo to="/festival">축제</LinkTo></NavItem>
                     <NavItem><LinkTo to="/restaurant">맛집</LinkTo></NavItem>
-                    <NavItem onClick={toggleTheme}>{themeMode==='light' ? <BsFillSunFill /> : <BsFillMoonFill />}</NavItem>
+                    <NavItem onClick={handleToggleTheme}>{themeState==='light' ? <BsFillSunFill /> : <BsFillMoonFill />}</NavItem>
                 </>
             )}
-            {!isLoggedIn &&<NavItem onClick={toggleTheme}>{themeMode==='light' ? <BsFillSunFill /> : <BsFillMoonFill />}</NavItem>}
+            {!isLoggedIn &&<NavItem onClick={handleToggleTheme}>{themeState==='light' ? <BsFillSunFill /> : <BsFillMoonFill />}</NavItem>}
         </NavContainer>
     )
 }
