@@ -34,10 +34,11 @@ const Nav = () => {
         <NavContainer>
             {isLoggedIn && (
                 <>
-                    <NavItem ><LinkTo to="/review">review</LinkTo></NavItem>
+                    <NavItem><LinkTo to="/review">review</LinkTo></NavItem>
                     <NavItem><LinkTo to="/wishtogo">wishToGo</LinkTo></NavItem>
-                    <NavItem ><LinkTo to="/festival">축제</LinkTo></NavItem>
-                    <NavItem ><LinkTo to="/restaurant">맛집</LinkTo></NavItem>
+                    <NavItem><LinkTo to="/festival">축제</LinkTo></NavItem>
+                    <NavItem><LinkTo to="/restaurant">맛집</LinkTo></NavItem>
+                    <NavItem><LinkTo to="/profile">profile</LinkTo></NavItem>
                     <NavItem onClick={toggleTheme}>{themeMode==='light' ? <BsFillSunFill /> : <BsFillMoonFill />}</NavItem>
                 </>
             )}
