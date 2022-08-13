@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom"
 import Home from "./routes/Home"
-import Detail from "./routes/Detail"
 import Restaurant from "./routes/Restaurant"
 import Festival from "./routes/Festival"
+import WishToGo from "./routes/WishToGo"
 
 
 const Router = () => {
@@ -11,6 +11,7 @@ const Router = () => {
                 <Route path="/" element ={<Home />}/>
                 <Route path="/restaurant" element ={<Restaurant />}/>
                 <Route path="/festival" element ={<Festival />}/>
+                <Route path="/wishtogo" element ={<WishToGo/>}/>
             </Routes>
     )
 }
