@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 let initialState = {
     festivalList : [],
     filteredFestival : [],
-    wishTogoList: [],
     optionFestival : ["지역을 선택하세요"]
 }
 
@@ -22,9 +21,12 @@ export const festivalSlice = createSlice({
             state.wishTogoList = action.payload
         },
         filterFestival : (state, action) => {
-            console.log('action.payload.restaurantList :', action.payload.festivalList)
-            console.log('action.payload.option :', action.payload.option)
-            state.filteredFestival = action.payload.festivalList.filter((el)=>el.GUGUN_NM===action.payload.option)
+            if(action.payload.option==="지역을 선택하세요"){
+                state.filteredFestival = action.payload.festivalList
+            }
+            else {
+                state.filteredFestival = action.payload.festivalList.filter((el)=>el.GUGUN_NM===action.payload.option)
+            }
         }
     }
 })

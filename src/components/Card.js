@@ -1,10 +1,31 @@
+import styled from "styled-components";
+
+const CardLi = styled.li`
+    display:flex;
+    margin-bottom: 1.5em;
+`
+const CardImg = styled.img`
+    width:200px;
+    height:200px;
+    margin : 0 0.5em ;
+`
+const CardP = styled.p`
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+`
+const CardWrapper = styled.div`
+    display: flex;
+    align-items: center;
+`
 const Card = (props) => {
     return(
-        <div key={props.data.UC_SEQ} >
-            <div>{props.data.MAIN_TITLE}</div>
-            <div>{props.data.ITEMCNTNTS}</div>
-            <img src={props.data.MAIN_IMG_THUMB} alt={props.data.MAIN_TITLE}/>
-        </div>
+        <CardLi key={props.data.UC_SEQ} >
+            <CardImg src={props.data.MAIN_IMG_THUMB} alt={props.data.MAIN_TITLE}/>
+                <p>{props.data.MAIN_TITLE}</p>
+                <CardP>{props.data.ITEMCNTNTS}</CardP>
+                <button onClick={()=>props.handleWish(props.data)}>추가하기</button>
+        </CardLi>
     )
 }
 

@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = {
     restaurantList : [],
-    aedRestaurant : [],
-    wishTogoList: [],
+    filteredRestaurant : [],
     optionRestaurant : ["지역을 선택하세요"]
 }
 
@@ -22,9 +21,12 @@ export const restaurantSlice = createSlice({
             state.wishTogoList = action.payload
         },
         filterRestaurant : (state, action) => {
-            console.log('action.payload.restaurantList :', action.payload.restaurantList)
-            console.log('action.payload.option :', action.payload.option)
-            state.filteredRestaurant = action.payload.restaurantList.filter((el)=>el.GUGUN_NM===action.payload.option)
+            if(action.payload.option==="지역을 선택하세요"){
+                state.filteredRestaurant = action.payload.restaurantList
+            }
+            else{
+                state.filteredRestaurant = action.payload.restaurantList.filter((el)=>el.GUGUN_NM===action.payload.option)
+            }
         }
     }
 })
