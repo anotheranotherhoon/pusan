@@ -4,8 +4,9 @@ import styled from "styled-components";
 import LoadingInicator from "./LoadingIndicator"
 import {login} from "../redux/authReducer"
 
+
 const AuthForm = () => {
-    const themeState = useSelector((state) => state.themeReducer)
+    const themeState = useSelector((state) => state.themeReducer).theme
     const firebaseKey = process.env.REACT_APP_FIREBASE_KEY
     const dispatch = useDispatch();
     const emailInputRef = useRef();
@@ -54,7 +55,8 @@ const AuthForm = () => {
                 });
             }
         }).then(data => {
-            dispatch(login(data.idToken))
+            const expirationTime = new Date(new Date().getTime() + (+data.expiresIn * 1000))
+            dispatch(login({idToken : data.idToken, expirationTime : expirationTime.toISOString(), email : data.email}))
         })
         .catch(err => {
             alert(err.message)

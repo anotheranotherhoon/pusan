@@ -18,14 +18,14 @@ const Restaurant = () => {
     const offset = (page - 1) * 10;
     const state = useSelector((state) => state.restaurantReducer)
     const tokenState = useSelector((state) => state.authReducer)
-    const {token, isLoggedIn} = tokenState
+    const {token, isLoggedIn, email} = tokenState
     const { restaurantList, filteredRestaurant, wishRestaurantList,optionRestaurant } = state
     const handleFilter = (event) => {
         dispatch(filterRestaurant({restaurantList, option : event.target.value}))
     }
     const handleWish = async(data) => {
         console.log(data.MAIN_TITLE)
-        await addDoc(collection(dbService, token),{
+        await addDoc(collection(dbService, email),{
             UC_SEQ : data.UC_SEQ,
             MAIN_IMG_THUMB : data.MAIN_IMG_THUMB,
             MAIN_TITLE : data.MAIN_TITLE,

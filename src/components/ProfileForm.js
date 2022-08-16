@@ -8,7 +8,7 @@ const ProfileForm = () => {
     const dispatch = useDispatch()
     const firebaseKey = process.env.REACT_APP_FIREBASE_KEY
     const newPasswordInputRef = useRef()
-    const themeState = useSelector((state) => state.themeReducer)
+    const themeState = useSelector((state) => state.themeReducer).theme
     const state = useSelector((state) => state.authReducer)
     const { token, isLoggedIn } = state
     const submitHandler = (event) => {
