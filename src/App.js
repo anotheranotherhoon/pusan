@@ -10,23 +10,21 @@ import Nav from './components/Nav';
 import Title from './components/Title'
 import ScrollToTop from './components/ScrollToTop';
 import { darkTheme, lightTheme } from './theme/theme';
+import Footer from './components/Footer';
 
 const serviceKey = process.env.REACT_APP_SERVICE_KEY
 function App() {
   const state = useSelector((state)=> state.themeReducer)
   const themeObject = state.theme === 'light' ? lightTheme : darkTheme;
-  console.log(themeObject)
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchRestaurantData = async() => {
       return await axios
-        .get(`https://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=${serviceKey}&resultType=json&numOfRows=149`,{
-          headers: {
-            'Content-Type': 'application/json'
-            }
+        .get('http://localhost:8000/restaurant',{
         })
         .then((res) => {
-          dispatch(fetchRestaurant(res.data.getFoodKr.item))
+          console.log(res.data)
+          dispatch(fetchRestaurant(res.data))
         })
         .catch((error) => {
           console.log(error)
@@ -34,13 +32,11 @@ function App() {
     }
     const fetchFestivalData = async() => {
       return await axios
-        .get(`https://apis.data.go.kr/6260000/FestivalService/getFestivalKr?serviceKey=aq8sYaH34Y%2BsCLkpFAAApTVKwdrQx1uzzu20XopOisJqIeZ0daJUTV6xBr2D061DFF41yMuVZvge2kcn6%2FfbMA%3D%3D&resultType=json&numOfRows=30`,{
-          headers: {
-            'Content-Type': 'application/json'
-            }
+        .get(`http://localhost:8000/festival`,{
         })
         .then((res) => {
-          dispatch(fetchFestival(res.data.getFestivalKr.item))
+          console.log(res.data)
+          dispatch(fetchFestival(res.data))
         })
         .catch((error) => {
           console.log(error)
@@ -56,6 +52,7 @@ function App() {
           <Nav/>
           <ScrollToTop/>
           <Router />
+          {/* <Footer/> */}
     </BrowserRouter>
   );
 }
