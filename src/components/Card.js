@@ -24,7 +24,9 @@ const Card = (props) => {
             <CardImg src={props.data.MAIN_IMG_THUMB} alt={props.data.MAIN_TITLE}/>
                 <p>{props.data.MAIN_TITLE}</p>
                 <CardP>{props.data.ITEMCNTNTS}</CardP>
-                <button onClick={()=>props.handleWish(props.data)}>추가하기</button>
+                {props.wish ? <button onClick={()=>props.handleDelete(props.data)}>삭제하기</button>
+                :
+                <button onClick={()=>props.handleWish(props.data)}>추가하기</button>}
         </CardLi>
     )
 }

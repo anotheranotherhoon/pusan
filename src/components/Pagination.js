@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 function Pagination({ total, limit, page, setPage }) {
-    const themeState = useSelector((state) => state.themeReducer)
+    const themeState = useSelector((state) => state.themeReducer).theme
     const numPages = Math.ceil(total / limit);
     return (
         <>
