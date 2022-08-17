@@ -23,7 +23,6 @@ function App() {
         .get('http://localhost:8000/restaurant',{
         })
         .then((res) => {
-          console.log(res.data)
           dispatch(fetchRestaurant(res.data))
         })
         .catch((error) => {
@@ -35,7 +34,6 @@ function App() {
         .get(`http://localhost:8000/festival`,{
         })
         .then((res) => {
-          console.log(res.data)
           dispatch(fetchFestival(res.data))
         })
         .catch((error) => {

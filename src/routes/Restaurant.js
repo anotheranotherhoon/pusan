@@ -19,20 +19,20 @@ const Restaurant = () => {
     const state = useSelector((state) => state.restaurantReducer)
     const tokenState = useSelector((state) => state.authReducer)
     const {token, isLoggedIn, email} = tokenState
-    const { restaurantList, filteredRestaurant, wishRestaurantList,optionRestaurant } = state
+    const { restaurantList, filteredRestaurant,optionRestaurant } = state
     const handleFilter = (event) => {
         dispatch(filterRestaurant({restaurantList, option : event.target.value}))
     }
     const handleWish = async(data) => {
-        console.log(data.MAIN_TITLE)
+        console.log(data)
         await addDoc(collection(dbService, email),{
             UC_SEQ : data.UC_SEQ,
             MAIN_IMG_THUMB : data.MAIN_IMG_THUMB,
             MAIN_TITLE : data.MAIN_TITLE,
-            ITEMCNTNTS : data.ITEMCNTNTS
+            ITEMCNTNTS : data.ITEMCNTNTS,
+            GUGUN_NM : data.GUGUN_NM
         })
     }
-
     return (
         <RestaurantContainer>
             <PlaceFilter option={optionRestaurant} handleFilter={handleFilter}/>
@@ -40,7 +40,7 @@ const Restaurant = () => {
             <footer>
                 <Pagination
                     total={filteredRestaurant.length}
-                    limit={10}
+                    limit={15}
                     page={page}
                     setPage={setPage}/>
             </footer>

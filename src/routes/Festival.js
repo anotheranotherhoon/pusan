@@ -24,12 +24,13 @@ const Festival = () => {
         dispatch(filterFestival({festivalList, option : event.target.value}))
     }
     const handleWish = async(data) => {
-        console.log(data.MAIN_TITLE)
+        console.log(data)
         await addDoc(collection(dbService, email),{
             UC_SEQ : data.UC_SEQ,
             MAIN_IMG_THUMB : data.MAIN_IMG_THUMB,
             MAIN_TITLE : data.MAIN_TITLE,
-            ITEMCNTNTS : data.ITEMCNTNTS
+            ITEMCNTNTS : data.ITEMCNTNTS,
+            GUGUN_NM: data.GUGUN_NM
         })
     }
     
@@ -40,7 +41,7 @@ const Festival = () => {
             <footer>
                 <Pagination
                     total={filteredFestival.length}
-                    limit={10}
+                    limit={15}
                     page={page}
                     setPage={setPage}/>
             </footer>

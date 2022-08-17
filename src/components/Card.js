@@ -23,6 +23,7 @@ const Card = (props) => {
         <CardLi key={props.data.UC_SEQ} >
             <CardImg src={props.data.MAIN_IMG_THUMB} alt={props.data.MAIN_TITLE}/>
                 <p>{props.data.MAIN_TITLE}</p>
+                <p>{props.data.GUGUN_NM}</p>
                 <CardP>{props.data.ITEMCNTNTS}</CardP>
                 {props.wish ? <button onClick={()=>props.handleDelete(props.data)}>삭제하기</button>
                 :
