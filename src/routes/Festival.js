@@ -27,8 +27,10 @@ const Festival = () => {
     }
     const handleWish = async(data) => {
         const check = wishToGoList.filter((el)=>el.UC_SEQ === data.UC_SEQ)
+        
         if(check.length>0){
-            return alert("이미 저장한 축제입니다.")
+            alert("이미 저장한 축제입니다.")
+            return
         }
         await addDoc(collection(dbService, email),{
             UC_SEQ : data.UC_SEQ,
