@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 
 const ScrollToTop = () => {
-    const themeState = useSelector((state) => state.themeReducer)
+    const themeState = useSelector((state) => state.themeReducer).theme
     const [scrollY, setScrollY] = useState(0);
     const [BtnStatus, setBtnStatus] = useState(false);
     const handleFollow = () => {

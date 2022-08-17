@@ -10,13 +10,16 @@ const NavContainer = styled.ul`
     display:flex;
     flex-direction: row-reverse;
     width:100%;
+    height: 4em;
     margin : 0;
-    padding: 0;
+    padding: 0 3em;
     background-color: darkslategrey;
     list-style-type: none;
+    align-items:center;
 `
 const NavItem = styled.li`
     padding: 15px;
+    margin-left: 5px;
     color: white;
     cursor: pointer;
 `
