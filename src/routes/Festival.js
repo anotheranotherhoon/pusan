@@ -20,11 +20,16 @@ const Festival = () => {
     const tokenState = useSelector((state) => state.authReducer)
     const {token, isLoggedIn, email} = tokenState
     const { festivalList, filteredFestival, wishFestivalList, optionFestival } = state
+    const stateWish = useSelector((state) => state.wishToGoReducer)
+    const {wishToGoList} = stateWish
     const handleFilter = (event) => {
         dispatch(filterFestival({festivalList, option : event.target.value}))
     }
     const handleWish = async(data) => {
-        console.log(data)
+        wishToGoList.filter((el)=>el.UC_SEQ === data.UC_SEQ)
+        if(wishToGoList){
+            return alert("이미 저장한 축제입니다!")
+        }
         await addDoc(collection(dbService, email),{
             UC_SEQ : data.UC_SEQ,
             MAIN_IMG_THUMB : data.MAIN_IMG_THUMB,
