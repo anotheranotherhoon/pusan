@@ -26,9 +26,9 @@ const Festival = () => {
         dispatch(filterFestival({festivalList, option : event.target.value}))
     }
     const handleWish = async(data) => {
-        wishToGoList.filter((el)=>el.UC_SEQ === data.UC_SEQ)
-        if(wishToGoList){
-            return alert("이미 저장한 축제입니다!")
+        const check = wishToGoList.filter((el)=>el.UC_SEQ === data.UC_SEQ)
+        if(check.length>0){
+            return alert("이미 저장한 축제입니다.")
         }
         await addDoc(collection(dbService, email),{
             UC_SEQ : data.UC_SEQ,

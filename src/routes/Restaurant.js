@@ -26,8 +26,8 @@ const Restaurant = () => {
         dispatch(filterRestaurant({restaurantList, option : event.target.value}))
     }
     const handleWish = async(data) => {
-        wishToGoList.filter((el)=>el.UC_SEQ === data.UC_SEQ)
-        if(wishToGoList){
+        const check = wishToGoList.filter((el)=>el.UC_SEQ === data.UC_SEQ)
+        if(check.length>0){
             return alert("이미 저장한 식당입니다!")
         }
         await addDoc(collection(dbService, email),{
