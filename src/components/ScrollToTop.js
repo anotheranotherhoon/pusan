@@ -23,8 +23,6 @@ const ScrollToTop = () => {
         setBtnStatus(false); // BtnStatus의 값을 false로 바꿈 => 버튼 숨김
     }
     useEffect(() => {
-    }, [scrollY])
-    useEffect(() => {
         const watch = () => {
             window.addEventListener('scroll', handleFollow);
         }
