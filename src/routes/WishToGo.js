@@ -1,58 +1,60 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import PlaceFilter from "../components/PlaceFilter";
+import { useSelector } from "react-redux";
 import Card from "../components/Card"
 import Pagination from "../components/Pagination";
 import { dbService } from "../fbase";
-import { doc,collection, deleteDoc, getDocs} from "firebase/firestore";
-import { useEffect} from 'react';
-import {fetchWish, filterWish} from '../redux/wishToGoReducer'
-import {CommonContainer} from '../style'
-
+import { doc, deleteDoc} from "firebase/firestore";
+import { CommonContainer } from '../style'
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { getWishList } from "../api/getWishList";
+import styled from "styled-components";
 
 const WishToGo = () => {
-    const dispatch = useDispatch()
-    const email = useSelector((state) => state.persistedReducer.authReducer.email)
+    const { email } = useSelector((state) => state.persistedReducer.authReducer)
     const [page, setPage] = useState(1);
     const offset = (page - 1) * 10;
-    const state = useSelector((state) => state.wishToGoReducer)
-    const { wishToGoList,filteredWishToGoList, optionWish} = state
-
-    useEffect(()=> {
-        const fetchFromFireStore = async() => {
-            const wishList = []
-            const querySnapshot = await getDocs(collection(dbService,email));
-            querySnapshot.forEach((doc) => {
-                let data = doc.data()
-                data.docId = doc.id
-                wishList.push(data)
-            })
-            dispatch(fetchWish(wishList))
-        }
-        fetchFromFireStore()
-    },[dispatch,email])
-    const handleDelete = async(e) => {
+    const queryClient = useQueryClient()
+    const handleDelete = async (e) => {
         const okDelete = window.confirm('정말로 삭제하시겠습니까?')
-        if(okDelete) {
+        if (okDelete) {
             await deleteDoc(doc(dbService, email, e.docId));
         }
     }
-    const handleFilter = (event) => {
-        dispatch(filterWish({wishToGoList, option : event.target.value}))
+    const { data, isLoading } = useQuery(
+        ['wishList'], () => getWishList(email)
+    )
+    const {mutate} = useMutation(handleDelete,{
+        onSuccess : () => queryClient.invalidateQueries(['wishList'])
+    })
+    if(isLoading){
+        return <div>로딩 중</div>
     }
-    return(
+    return (
         <CommonContainer>
-            <PlaceFilter option={optionWish} handleFilter={handleFilter}/>
-            {filteredWishToGoList.slice(offset, offset + 10).map((data) => <Card data={data} key={data.UC_SEQ} handleDelete={handleDelete} wish={true}/> )}
+            <WishList>Wish List</WishList>
+            {data.slice(offset, offset + 10).map((data) => <Card data={data} key={data.UC_SEQ} handleDelete={mutate} wish={true} />)}
             <footer>
                 <Pagination
-                    total={filteredWishToGoList.length}
+                    total={data.length}
                     limit={15}
                     page={page}
-                    setPage={setPage}/>
+                    setPage={setPage} />
             </footer>
         </CommonContainer>
     )
 }
+
+const WishList = styled.div`
+    margin:2rem 0;
+    width: 200px;
+    border: ${(props) => props.theme.theme === 'light' ? '1px solid #77af9c' : '1px solid grey'};
+    color: ${(props) => props.theme.theme === 'light' ? '1px solid #77af9c' : '1px solid grey'};
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+`
 
 export default WishToGo
