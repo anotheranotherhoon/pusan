@@ -18,8 +18,8 @@ const Festival = () => {
     const offset = (page - 1) * 10;
     const state = useSelector((state) => state.festivalReducer)
     const tokenState = useSelector((state) => state.authReducer)
-    const {token, isLoggedIn, email} = tokenState
-    const { festivalList, filteredFestival, wishFestivalList, optionFestival } = state
+    const {email} = tokenState
+    const { festivalList, filteredFestival,optionFestival } = state
     const stateWish = useSelector((state) => state.wishToGoReducer)
     const {wishToGoList} = stateWish
     const handleFilter = (event) => {

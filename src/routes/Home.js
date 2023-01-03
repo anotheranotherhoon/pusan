@@ -2,8 +2,7 @@ import { useSelector } from "react-redux"
 import AuthForm from "../components/AuthForm"
 
 const Home = () => {
-    const state = useSelector((state) => state.authReducer)
-    const {token, isLoggedIn} = state
+    const {isLoggedIn} = useSelector((state) => state.persistedReducer.authReducer)
     return (
         <>
         {isLoggedIn&&(

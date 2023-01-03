@@ -36,9 +36,9 @@ const LogoutBtn = styled.div`
 
 const Nav = () => {
     const navigate = useNavigate()
-    const themeState = useSelector((state) => state.themeReducer).theme
-    const state = useSelector((state) => state.authReducer)
-    const {token, isLoggedIn} = state
+    const state = useSelector((state) => state.persistedReducer)
+    const {theme} = state.themeReducer
+    const { isLoggedIn} = state.authReducer
     const dispatch = useDispatch();
     const handleToggleTheme = () => {
         dispatch(toggleTheme())
@@ -57,10 +57,10 @@ const Nav = () => {
                     <NavItem><LinkTo to="/wishtogo">wishToGo</LinkTo></NavItem>
                     <NavItem><LinkTo to="/festival">축제</LinkTo></NavItem>
                     <NavItem><LinkTo to="/restaurant">맛집</LinkTo></NavItem>
-                    <NavItem onClick={handleToggleTheme}>{themeState==='light' ? <BsFillMoonFill /> : <BsFillSunFill />}</NavItem>
+                    <NavItem onClick={handleToggleTheme}>{theme==='light' ? <BsFillMoonFill /> : <BsFillSunFill />}</NavItem>
                 </>
             )}
-            {!isLoggedIn &&<NavItem onClick={handleToggleTheme}>{themeState==='light' ? <BsFillMoonFill /> : <BsFillSunFill /> }</NavItem>}
+            {!isLoggedIn &&<NavItem onClick={handleToggleTheme}>{theme==='light' ? <BsFillMoonFill /> : <BsFillSunFill /> }</NavItem>}
         </NavContainer>
     )
 }

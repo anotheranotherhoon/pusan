@@ -8,9 +8,10 @@ const ProfileForm = () => {
     const dispatch = useDispatch()
     const firebaseKey = process.env.REACT_APP_FIREBASE_KEY
     const newPasswordInputRef = useRef()
-    const themeState = useSelector((state) => state.themeReducer).theme
-    const state = useSelector((state) => state.authReducer)
-    const { token, isLoggedIn } = state
+
+    const state = useSelector((state) => state.persistedReducer)
+    const { token } = state.authReducer
+    console.log(token)
     const submitHandler = (event) => {
         event.preventDefault();
 
@@ -34,12 +35,12 @@ const ProfileForm = () => {
         });
     };
     return (
-        <ProfileForms themeState={themeState} onSubmit={submitHandler}>
-            <ProfileControl themeState={themeState}>
+        <ProfileForms onSubmit={submitHandler}>
+            <ProfileControl>
                 <label htmlFor='new-password'>New Password</label>
                 <input type='password' id='new-password' minLength='7' ref={newPasswordInputRef} />
             </ProfileControl >
-            <ProfileAction themeState={themeState}>
+            <ProfileAction>
                 <button>Change Password</button>
             </ProfileAction>
         </ProfileForms>
@@ -57,7 +58,7 @@ const ProfileControl = styled.div`
     label {
         font-weight: bold;
         margin-bottom: 0.5rem;
-        color: ${(props) => props.themeState === 'light' ? 'black' : 'white'};
+        color: ${(props) => props.theme.theme === 'light' ? 'black' : 'white'};
         display: block;
     }
     input {
@@ -67,7 +68,7 @@ const ProfileControl = styled.div`
         border-radius: 4px;
         border: 1px solid #38015c;
         padding: 0.25rem;
-        background-color: ${(props) => props.themeState === 'light' ? 'white' : 'grey'};
+        background-color: ${(props) => props.theme.theme === 'light' ? 'white' : 'grey'};
     }
 `
 const ProfileAction = styled.div`
@@ -77,11 +78,11 @@ const ProfileAction = styled.div`
             cursor: pointer;
             padding: 0.5rem 1.5rem;
             border-radius: 4px;
-            background-color: ${(props) => props.themeState === 'light' ? '#489572' : 'grey'};
-            color: ${(props) => props.themeState === 'light' ? 'white' : 'black'};
+            background-color: ${(props) => props.theme.theme === 'light' ? '#489572' : 'grey'};
+            color: ${(props) => props.theme.theme === 'light' ? 'white' : 'black'};
             border: 1px solid #38015c;
             &:hover{
-                background-color:${(props) => props.themeState === 'light' ? '#489572' : 'grey'};
+                background-color:${(props) => props.theme.theme === 'light' ? '#489572' : 'grey'};
                 border-color: #540d83;
             }
         }

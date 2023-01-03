@@ -1,12 +1,11 @@
 import { useState, useRef } from "react"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import LoadingInicator from "./LoadingIndicator"
 import {login} from "../redux/authReducer"
 
 
 const AuthForm = () => {
-    const themeState = useSelector((state) => state.themeReducer).theme
     const firebaseKey = process.env.REACT_APP_FIREBASE_KEY
     const dispatch = useDispatch();
     const emailInputRef = useRef();
@@ -65,18 +64,18 @@ const AuthForm = () => {
 
 
     return (
-        <AuthSection themeState={themeState}>
-            <AuthTitle themeState={themeState}>{isLogin ? '로그인' : '회원가입'}</AuthTitle>
+        <AuthSection>
+            <AuthTitle>{isLogin ? '로그인' : '회원가입'}</AuthTitle>
             <form onSubmit={submitHandler}>
-                <AuthControl themeState={themeState}>
+                <AuthControl>
                     <label htmlFor="email">이메일을 입력하세요.</label>
                     <input type='email' id='email' ref={emailInputRef} required />
                 </AuthControl>
-                <AuthControl themeState={themeState}>
+                <AuthControl>
                     <label htmlFor='password'>비밀번호를 입력하세요.</label>
                     <input type='password' id='password' ref={passwordInputRef} required />
                 </AuthControl>
-                <AuthActions themeState={themeState}>
+                <AuthActions>
                     {!isLoading && (
                     <button>{isLogin ? '로그인' : '계정 생성'}</button>
                     )}
@@ -97,29 +96,29 @@ const AuthSection = styled.section`
     width: 95%;
     max-width: 25rem;
     border-radius: 6px;
-    background: ${(props) => props.themeState === 'light' ? 'darkslategrey' : 'grey'};
-    color:${(props) => props.themeState === 'light' ? 'white' : 'black'};
+    background: ${(props) => props.theme.theme === 'light' ? 'darkslategrey' : 'grey'};
+    color:${(props) => props.theme.theme  === 'light' ? 'white' : 'black'};
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     padding: 1rem;
     text-align: center;
 `
 const AuthTitle = styled.h1`
     text-align: center;
-    color:${(props) => props.themeState === 'light' ? 'white' : 'black'};
+    color:${(props) => props.theme.theme  === 'light' ? 'white' : 'black'};
 `
 
 const AuthControl = styled.div`
     margin-bottom: 0.5rem;
     label{
         display: block;
-        color:${(props) => props.themeState === 'light' ? 'white' : 'black'};
+        color:${(props) => props.theme.theme  === 'light' ? 'white' : 'black'};
         font-weight: bold;
         margin-bottom: 0.5rem;
     }
     input{
         font: inherit;
         background-color: lightgray;
-        color:${(props) => props.themeState === 'light' ? 'white' : 'black'};
+        color:${(props) => props.theme.theme  === 'light' ? 'white' : 'black'};
         border-radius: 4px;
         border: 1px solid white;
         width: 100%;
@@ -135,8 +134,8 @@ const AuthActions = styled.div`
     button{
         cursor: pointer;
         font: inherit;
-        color:${(props) => props.themeState === 'light' ? 'white' : 'black'};
-        background: ${(props) => props.themeState === 'light' ? '#489572' : 'grey'};
+        color:${(props) => props.theme.theme  === 'light' ? 'white' : 'black'};
+        background: ${(props) => props.theme.theme  === 'light' ? '#489572' : 'grey'};
         border: 1px solid white;
         border-radius: 4px;
         padding: 0.5rem 2.5rem;
@@ -149,7 +148,7 @@ const AuthActions = styled.div`
     .toggle{
         margin-top: 1rem;
         background-color: transparent;
-        color:${(props) => props.themeState === 'light' ? 'white' : 'black'};
+        color:${(props) => props.theme.theme  === 'light' ? 'white' : 'black'};
         border: none;
         padding: 0.15rem 1.5rem;
         &:hover{

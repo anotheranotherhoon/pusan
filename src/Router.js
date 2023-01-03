@@ -7,8 +7,8 @@ import Profile from "./routes/Profile"
 import { useSelector } from "react-redux"
 
 const Router = () => {
-    const userState = useSelector((state) => state.persistedReducer)
-    const {isLoggedIn} = userState.authReducer
+    const {isLoggedIn} = useSelector((state) => state.persistedReducer.authReducer)
+    console.log(isLoggedIn)
     return (
             <Routes>
                 <Route path="/" element ={<Home />}/>

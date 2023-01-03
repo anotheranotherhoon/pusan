@@ -1,7 +1,7 @@
-import {useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchRestaurant } from './redux/restaurantReducer'
 import { fetchFestival } from './redux/festivalReducer'
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
 import { GlobalStyle } from './theme/GlobalStyle';
@@ -10,14 +10,15 @@ import Nav from './components/Nav';
 import Title from './components/Title'
 import ScrollToTop from './components/ScrollToTop';
 import { darkTheme, lightTheme } from './theme/theme';
+import { ThemeProvider } from 'styled-components';
 function App() {
-  const state = useSelector((state)=> state.persistedReducer)
-  const themeObject = state.themeReducer.theme === 'light' ? lightTheme : darkTheme;
+  const themeState = useSelector((state) => state.persistedReducer.themeReducer)
+  const themeObject = themeState.theme === 'light' ? lightTheme : darkTheme;
   const dispatch = useDispatch();
   useEffect(() => {
-    const fetchRestaurantData = async() => {
+    const fetchRestaurantData = async () => {
       return await axios
-        .get('http://localhost:8000/restaurant',{
+        .get('http://localhost:8000/restaurant', {
         })
         .then((res) => {
           dispatch(fetchRestaurant(res.data))
@@ -26,9 +27,9 @@ function App() {
           console.log(error)
         })
     }
-    const fetchFestivalData = async() => {
+    const fetchFestivalData = async () => {
       return await axios
-        .get(`http://localhost:8000/festival`,{
+        .get(`http://localhost:8000/festival`, {
         })
         .then((res) => {
           dispatch(fetchFestival(res.data))
@@ -42,11 +43,13 @@ function App() {
   }, [dispatch])
   return (
     <BrowserRouter>
-    <GlobalStyle theme={themeObject}/>
-          <Title />
-          <Nav/>
-          <ScrollToTop/>
-          <Router />
+      <ThemeProvider theme={themeState}>
+        <GlobalStyle theme={themeObject} />
+        <Title />
+        <Nav />
+        <ScrollToTop />
+        <Router />
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

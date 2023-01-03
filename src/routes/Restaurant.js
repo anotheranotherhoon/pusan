@@ -17,8 +17,7 @@ const Restaurant = () => {
     const [page, setPage] = useState(1);
     const offset = (page - 1) * 10;
     const state = useSelector((state) => state.restaurantReducer)
-    const tokenState = useSelector((state) => state.authReducer)
-    const {token, isLoggedIn, email} = tokenState
+    const {email} = useSelector((state) => state.persistedReducer.authReducer)
     const { restaurantList, filteredRestaurant,optionRestaurant } = state
     const stateWish = useSelector((state) => state.wishToGoReducer)
     const {wishToGoList} = stateWish

@@ -1,5 +1,20 @@
-import { useSelector } from "react-redux";
 import styled from "styled-components";
+
+const Card = (props) => {
+    return(
+        <CardLi key={props.data.UC_SEQ} >
+            <CardImg src={props.data.MAIN_IMG_THUMB} alt={props.data.MAIN_TITLE}/>
+            <CardWrapper>
+                <CardTitle>{props.data.TITLE}</CardTitle>
+                <p>{props.data.ADDR1}</p>
+                <CardP>{props.data.ITEMCNTNTS}</CardP>
+            </CardWrapper>
+            {props.wish ? <CardBtn onClick={()=>props.handleDelete(props.data)}>삭제하기</CardBtn>
+            :
+            <CardBtn onClick={()=>props.handleWish(props.data)}>가고 싶다</CardBtn>}
+        </CardLi>
+    )
+}
 
 const CardLi = styled.li`
     display:flex;
@@ -31,13 +46,13 @@ const CardBtn = styled.button`
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     text-decoration: none;
     font-weight: 600;
-    background-color : ${(props) => props.themeState === 'light' ? '#77af9c': 'grey'};
-    color:${(props) => props.themeState === 'light' ? 'white': 'black'};
+    background-color : ${(props) => props.theme.theme === 'light' ? '#77af9c': 'grey'};
+    color:${(props) => props.theme.theme === 'light' ? 'white': 'black'};
     transition: 0.3s;
     :hover{
         cursor: pointer;
         transform:scale(1.1);
-        background-color : ${(props) => props.themeState === 'light' ? '#519d9e': '#D3D3D3'};
+        background-color : ${(props) => props.theme.theme === 'light' ? '#519d9e': '#D3D3D3'};
     }
 `
 const CardTitle = styled.p`
@@ -45,22 +60,5 @@ const CardTitle = styled.p`
     font-weight: bold;
     margin-bottom: 20px;
 `
-
-const Card = (props) => {
-    const themeState = useSelector((state) => state.themeReducer).theme
-    return(
-        <CardLi key={props.data.UC_SEQ} >
-            <CardImg src={props.data.MAIN_IMG_THUMB} alt={props.data.MAIN_TITLE}/>
-            <CardWrapper>
-                <CardTitle>{props.data.TITLE}</CardTitle>
-                <p>{props.data.ADDR1}</p>
-                <CardP>{props.data.ITEMCNTNTS}</CardP>
-            </CardWrapper>
-            {props.wish ? <CardBtn onClick={()=>props.handleDelete(props.data)}>삭제하기</CardBtn>
-            :
-            <CardBtn themeState={themeState} onClick={()=>props.handleWish(props.data)}>가고 싶다</CardBtn>}
-        </CardLi>
-    )
-}
 
 export default Card;

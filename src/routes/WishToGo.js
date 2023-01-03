@@ -15,8 +15,7 @@ const WishToGoContainer = styled.ul`
 
 const WishToGo = () => {
     const dispatch = useDispatch()
-    const userState = useSelector((state) => state.persistedReducer)
-    const {email} = userState.authReducer;
+    const email = useSelector((state) => state.persistedReducer.authReducer)
     const [page, setPage] = useState(1);
     const offset = (page - 1) * 10;
     const state = useSelector((state) => state.wishToGoReducer)
@@ -33,7 +32,6 @@ const WishToGo = () => {
                 data.docId = doc.id
                 wishList.push(data)
             })
-            console.log(wishList)
             dispatch(fetchWish(wishList))
         }
         fetchFromFireStore()

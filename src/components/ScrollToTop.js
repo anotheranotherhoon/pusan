@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 
 
 const ScrollToTop = () => {
-    const themeState = useSelector((state) => state.themeReducer).theme
     const [scrollY, setScrollY] = useState(0);
     const [BtnStatus, setBtnStatus] = useState(false);
     const handleFollow = () => {
@@ -25,7 +23,6 @@ const ScrollToTop = () => {
         setBtnStatus(false); // BtnStatus의 값을 false로 바꿈 => 버튼 숨김
     }
     useEffect(() => {
-        // console.log("ScrollY is", scrollY)
     }, [scrollY])
     useEffect(() => {
         const watch = () => {
@@ -37,7 +34,7 @@ const ScrollToTop = () => {
         }
     })
     return (
-            <TopBtn className={BtnStatus ? "topBtn active" : "topBtn"} onClick={handleTop} themeState={themeState} >TOP</TopBtn>
+            <TopBtn className={BtnStatus ? "topBtn active" : "topBtn"} onClick={handleTop} >TOP</TopBtn>
     )
 }
 
@@ -51,8 +48,8 @@ const TopBtn = styled.button`
     height: 50px;
     border-radius: 100%;
     border: 0 none;
-    background: ${(props) => props.themeState === 'light' ? 'darkslategrey': 'grey'};
-    color:${(props) => props.themeState === 'light' ? 'white': 'black'};
+    background: ${(props) => props.theme.theme === 'light' ? 'darkslategrey': 'grey'};
+    color:${(props) => props.theme.theme === 'light' ? 'white': 'black'};
     border: 2px solid white;
     font-size: 18px;
     font-weight: bold;
