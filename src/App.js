@@ -10,12 +10,9 @@ import Nav from './components/Nav';
 import Title from './components/Title'
 import ScrollToTop from './components/ScrollToTop';
 import { darkTheme, lightTheme } from './theme/theme';
-import Footer from './components/Footer';
-
-const serviceKey = process.env.REACT_APP_SERVICE_KEY
 function App() {
-  const state = useSelector((state)=> state.themeReducer)
-  const themeObject = state.theme === 'light' ? lightTheme : darkTheme;
+  const state = useSelector((state)=> state.persistedReducer)
+  const themeObject = state.themeReducer.theme === 'light' ? lightTheme : darkTheme;
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchRestaurantData = async() => {
@@ -45,12 +42,11 @@ function App() {
   }, [dispatch])
   return (
     <BrowserRouter>
-      <GlobalStyle theme={themeObject}/>
+    <GlobalStyle theme={themeObject}/>
           <Title />
           <Nav/>
           <ScrollToTop/>
           <Router />
-          {/* <Footer/> */}
     </BrowserRouter>
   );
 }

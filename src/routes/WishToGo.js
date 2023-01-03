@@ -15,9 +15,8 @@ const WishToGoContainer = styled.ul`
 
 const WishToGo = () => {
     const dispatch = useDispatch()
-    //wish
-    const tokenState = useSelector((state) => state.authReducer)
-    const {token, isLoggedIn, email} = tokenState;
+    const userState = useSelector((state) => state.persistedReducer)
+    const {email} = userState.authReducer;
     const [page, setPage] = useState(1);
     const offset = (page - 1) * 10;
     const state = useSelector((state) => state.wishToGoReducer)
@@ -43,7 +42,6 @@ const WishToGo = () => {
         const sayYes = window.confirm('정말로 삭제하시겠습니까?')
         if(sayYes) {
             await deleteDoc(doc(dbService, email, e.docId));
-            // await deleteObject(ref(storageService, ))
         }
     }
     const handleFilter = (event) => {
