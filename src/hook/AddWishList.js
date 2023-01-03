@@ -8,7 +8,9 @@ export const AddWishList = async(email, wishList, data) => {
   await addDoc(collection(dbService, email),{
     UC_SEQ : data.UC_SEQ,
     MAIN_IMG_THUMB : data.MAIN_IMG_THUMB,
+    ADDR1 : data.ADDR1,
     MAIN_TITLE : data.MAIN_TITLE,
+    TITLE : data.TITLE,
     ITEMCNTNTS : data.ITEMCNTNTS,
     GUGUN_NM : data.GUGUN_NM
 })
