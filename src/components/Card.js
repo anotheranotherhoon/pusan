@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux"
 import styled from "styled-components";
+import { AddWishList } from "../hook/AddWishList";
 
 const Card = (props) => {
+    const {email} = useSelector((state) => state.persistedReducer.authReducer)
+    const {wishToGoList} = useSelector((state) => state.wishToGoReducer)
     return(
         <CardLi key={props.data.UC_SEQ} >
             <CardImg src={props.data.MAIN_IMG_THUMB} alt={props.data.MAIN_TITLE}/>
@@ -11,7 +15,7 @@ const Card = (props) => {
             </CardWrapper>
             {props.wish ? <CardBtn onClick={()=>props.handleDelete(props.data)}>삭제하기</CardBtn>
             :
-            <CardBtn onClick={()=>props.handleWish(props.data)}>가고 싶다</CardBtn>}
+            <CardBtn onClick={()=>AddWishList(email, wishToGoList, props.data)}>가고 싶다</CardBtn>}
         </CardLi>
     )
 }
