@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRestaurant } from './redux/restaurantReducer'
 import { fetchFestival } from './redux/festivalReducer'
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
 import { GlobalStyle } from './theme/GlobalStyle';
@@ -47,7 +47,9 @@ function App() {
         <Title />
         <Nav />
         <ScrollToTop />
+        <Suspense fallback={<h1>loading...</h1>}>
         <Router />
+        </Suspense>
       </ThemeProvider>
     </BrowserRouter>
   );
