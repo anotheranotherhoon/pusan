@@ -2,12 +2,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from "../components/Card";
 import Pagination from '../components/Pagination';
 import PlaceFilter from '../components/PlaceFilter';
-import {filterRestaurant} from '../redux/restaurantReducer'
+import {fetchRestaurant, filterRestaurant} from '../redux/restaurantReducer'
 import { usePagination } from '../hook/usePagination';
 import { CommonContainer } from '../style';
+import { useEffect } from 'react';
+import { getRestaurant } from '../api/getRestaurant';
 
 const Restaurant = () => {
     const dispatch = useDispatch();
+    useEffect(()=>{
+        getRestaurant().then((res)=>dispatch(fetchRestaurant(res)))
+    },[dispatch])
     const {page, setPage, offset} = usePagination()
     const state = useSelector((state) => state.restaurantReducer)
     const { restaurantList, filteredRestaurant,optionRestaurant } = state
