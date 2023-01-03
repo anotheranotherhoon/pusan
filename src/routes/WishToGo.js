@@ -7,22 +7,17 @@ import { dbService } from "../fbase";
 import { doc,collection, deleteDoc, getDocs} from "firebase/firestore";
 import { useEffect} from 'react';
 import {fetchWish, filterWish} from '../redux/wishToGoReducer'
-import styled from "styled-components";
+import {CommonContainer} from '../style'
 
-const WishToGoContainer = styled.ul`
-    margin-left: 10em;
-`
 
 const WishToGo = () => {
     const dispatch = useDispatch()
-    const email = useSelector((state) => state.persistedReducer.authReducer)
+    const email = useSelector((state) => state.persistedReducer.authReducer.email)
     const [page, setPage] = useState(1);
     const offset = (page - 1) * 10;
     const state = useSelector((state) => state.wishToGoReducer)
     const { wishToGoList,filteredWishToGoList, optionWish} = state
 
-
-    
     useEffect(()=> {
         const fetchFromFireStore = async() => {
             const wishList = []
@@ -37,8 +32,8 @@ const WishToGo = () => {
         fetchFromFireStore()
     },[dispatch,email])
     const handleDelete = async(e) => {
-        const sayYes = window.confirm('정말로 삭제하시겠습니까?')
-        if(sayYes) {
+        const okDelete = window.confirm('정말로 삭제하시겠습니까?')
+        if(okDelete) {
             await deleteDoc(doc(dbService, email, e.docId));
         }
     }
@@ -46,7 +41,7 @@ const WishToGo = () => {
         dispatch(filterWish({wishToGoList, option : event.target.value}))
     }
     return(
-        <WishToGoContainer>
+        <CommonContainer>
             <PlaceFilter option={optionWish} handleFilter={handleFilter}/>
             {filteredWishToGoList.slice(offset, offset + 10).map((data) => <Card data={data} key={data.UC_SEQ} handleDelete={handleDelete} wish={true}/> )}
             <footer>
@@ -56,7 +51,7 @@ const WishToGo = () => {
                     page={page}
                     setPage={setPage}/>
             </footer>
-        </WishToGoContainer>
+        </CommonContainer>
     )
 }
 
