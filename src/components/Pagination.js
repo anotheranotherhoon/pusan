@@ -1,9 +1,10 @@
+import React from "react";
 import styled from "styled-components";
 
 function Pagination({ total, limit, page, setPage }) {
     const numPages = Math.ceil(total / limit);
     return (
-        <>
+        <React.Fragment>
             <Nav>
                 <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
                     &lt;
@@ -23,7 +24,7 @@ function Pagination({ total, limit, page, setPage }) {
                     &gt;
                 </Button>
             </Nav>
-        </>
+        </React.Fragment>
     );
 }
 

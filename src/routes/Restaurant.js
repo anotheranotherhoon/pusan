@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import Card from "../components/Card";
 import Pagination from '../components/Pagination';
 import PlaceFilter from '../components/PlaceFilter';

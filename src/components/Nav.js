@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/authReducer";
 import {toggleTheme} from "../redux/themeReducer"
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 const NavContainer = styled.ul`
     display:flex;
@@ -50,7 +51,7 @@ const Nav = () => {
     return (
         <NavContainer>
             {isLoggedIn && (
-                <>
+                <React.Fragment>
                     <NavItem><LogoutBtn onClick={handleLogout}>로그아웃</LogoutBtn></NavItem>
                     <NavItem><LinkTo to="/profile">profile</LinkTo></NavItem>
                     <NavItem><LinkTo to="/review">review</LinkTo></NavItem>
@@ -58,7 +59,7 @@ const Nav = () => {
                     <NavItem><LinkTo to="/festival">축제</LinkTo></NavItem>
                     <NavItem><LinkTo to="/restaurant">맛집</LinkTo></NavItem>
                     <NavItem onClick={handleToggleTheme}>{theme==='light' ? <BsFillMoonFill /> : <BsFillSunFill />}</NavItem>
-                </>
+                </React.Fragment>
             )}
             {!isLoggedIn &&<NavItem onClick={handleToggleTheme}>{theme==='light' ? <BsFillMoonFill /> : <BsFillSunFill /> }</NavItem>}
         </NavContainer>
