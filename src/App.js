@@ -18,8 +18,7 @@ function App() {
   useEffect(() => {
     const fetchRestaurantData = async () => {
       return await axios
-        .get('http://localhost:8000/restaurant', {
-        })
+        .get('http://localhost:8000/restaurant')
         .then((res) => {
           dispatch(fetchRestaurant(res.data))
         })
