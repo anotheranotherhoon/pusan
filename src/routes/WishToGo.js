@@ -8,11 +8,11 @@ import { CommonContainer } from '../style'
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { getWishList } from "../api/getWishList";
 import styled from "styled-components";
+import { usePagination } from "../hook/usePagination";
 
 const WishToGo = () => {
     const { email } = useSelector((state) => state.persistedReducer.authReducer)
-    const [page, setPage] = useState(1);
-    const offset = (page - 1) * 10;
+    const {page, setPage, offset} = usePagination()
     const queryClient = useQueryClient()
     const handleDelete = async (e) => {
         const okDelete = window.confirm('정말로 삭제하시겠습니까?')
