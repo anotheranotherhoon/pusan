@@ -32,7 +32,7 @@ const MainPage = () => {
   }
   return (
     <CommonContainer>
-      <Comment>놀러 가기 전 날씨 부터 확인!</Comment>
+      <Comment>놀러 가기 전 날씨부터 확인!</Comment>
       <MapLayout>
         <Map
           center={{ lat: 35.189, lng: 129.07573898218627 }}
@@ -66,6 +66,8 @@ const MainPage = () => {
 const GridLayout = styled.div`
   display:grid;
   grid-template-columns: repeat(4, 1fr);
+  margin : 10px 0;
+  gap: 10px;
   @media screen and (max-width: 1024px) {
     grid-template-columns: repeat(2, 50%);
     grid-row-gap: 10%;
