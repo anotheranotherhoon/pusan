@@ -11,12 +11,17 @@ const NavContainer = styled.ul`
     display:flex;
     flex-direction: row-reverse;
     width:100%;
-    height: 4em;
+    height: 4rem;
     margin : 0;
     padding: 0 3em;
     background-color: darkslategrey;
     list-style-type: none;
     align-items:center;
+    @media screen and (max-width: 1024px) {
+        padding:0;
+    } 
+
+
 `
 const NavItem = styled.li`
     padding: 15px;
@@ -53,8 +58,6 @@ const Nav = () => {
             {isLoggedIn && (
                 <React.Fragment>
                     <NavItem><LogoutBtn onClick={handleLogout}>로그아웃</LogoutBtn></NavItem>
-                    <NavItem><LinkTo to="/profile">profile</LinkTo></NavItem>
-                    <NavItem><LinkTo to="/review">review</LinkTo></NavItem>
                     <NavItem><LinkTo to="/wishtogo">wishToGo</LinkTo></NavItem>
                     <NavItem><LinkTo to="/festival">축제</LinkTo></NavItem>
                     <NavItem><LinkTo to="/restaurant">맛집</LinkTo></NavItem>

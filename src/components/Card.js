@@ -3,35 +3,42 @@ import styled from "styled-components";
 import { AddWishList } from "../hook/AddWishList";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { getWishList, deleteWishListItem } from "../api/WishList";
-const Card = ({info, wish}) => {
-    const {email} = useSelector((state) => state.persistedReducer.authReducer)
+const Card = ({ info, wish }) => {
+    const { email } = useSelector((state) => state.persistedReducer.authReducer)
     const { data, isLoading } = useQuery(
         ['wishList'], () => getWishList(email)
     )
-    const isInWishList = isLoading ? []: data.filter((el)=>el.UC_SEQ === info.UC_SEQ).length
+    const isInWishList = isLoading ? [] : data.filter((el) => el.UC_SEQ === info.UC_SEQ).length
     const queryClient = useQueryClient()
-    const {mutate} = useMutation(deleteWishListItem,{
-        onSuccess : () => queryClient.invalidateQueries(['wishList'])
+    const { mutate } = useMutation(deleteWishListItem, {
+        onSuccess: () => queryClient.invalidateQueries(['wishList'])
     })
-    return(
+    return (
         <CardLi key={info.UC_SEQ} >
-            <CardImg src={info.MAIN_IMG_THUMB} alt={info.MAIN_TITLE}/>
-            <CardWrapper>
+            <Wrapper>
+            <CardImg src={info.MAIN_IMG_THUMB} alt={info.MAIN_TITLE} />
+            <CardWrapper className="inMobileNone">
                 <CardTitle>{info.TITLE}</CardTitle>
                 <p>{info.ADDR1}</p>
                 <CardP>{info.ITEMCNTNTS}</CardP>
             </CardWrapper>
             {wish ?
-            <CardBtn onClick={()=>mutate({
-                email, 
-                docId :info.docId
-            })}>삭제하기</CardBtn>
-            :
-            isInWishList ?
-            <IsInWishList className="isInWishList">저장 완료!</IsInWishList>
-            :
-            <CardBtn onClick={()=>AddWishList(email, data, info)}>가고 싶다</CardBtn>
+                <CardBtn onClick={() => mutate({
+                    email,
+                    docId: info.docId
+                })}>삭제하기</CardBtn>
+                :
+                isInWishList ?
+                    <IsInWishList className="isInWishList">저장 완료!</IsInWishList>
+                    :
+                    <CardBtn onClick={() => AddWishList(email, data, info)}>가고 싶다</CardBtn>
             }
+            </Wrapper>
+            <CardWrapper className="inWebNone">
+                <CardTitle>{info.TITLE}</CardTitle>
+                <p>{info.ADDR1}</p>
+                <CardP>{info.ITEMCNTNTS}</CardP>
+            </CardWrapper>
         </CardLi>
     )
 }
@@ -39,22 +46,49 @@ const Card = ({info, wish}) => {
 const CardLi = styled.li`
     display:flex;
     width: 100%;
-    margin-bottom: 1.5em;
+    margin-bottom: 3em;
+    height: auto;
+    @media screen and (max-width: 1024px) {
+        flex-direction: column;
+        max-height: 2000px;
+    }
 `
+const Wrapper = styled.section`
+    display:flex;
+    width:100%;
+    flex-direction: row;
+`
+
 const CardImg = styled.img`
     width:200px;
     height:200px;
     margin : 0 0.5em ;
 `
-const CardP = styled.p`
+const CardP = styled.div`
     margin-top: 20px;
-    height: 60%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre-line;
+    overflow: scroll;
+    line-height:30px;
+    width:100%;
+    height: 75%;
+    @media screen and (max-width: 1024px) {
+        max-height: 200px;
+    }
 `
 const CardWrapper = styled.div`
-    width: 75%;
+    width:75%;
+    height:200px;
+    &.inWebNone{
+        display:none
+    }
+    @media screen and (max-width: 1024px) {
+        width:100%;
+        &.inMobileNone{
+            display:none
+        }
+        &.inWebNone{
+        display:block
+    }
+    }
 `
 
 const CardBtn = styled.button`
@@ -66,13 +100,19 @@ const CardBtn = styled.button`
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     text-decoration: none;
     font-weight: 600;
-    background-color : ${(props) => props.theme.theme === 'light' ? '#77af9c': 'grey'};
-    color:${(props) => props.theme.theme === 'light' ? 'white': 'black'};
+    background-color : ${(props) => props.theme.theme === 'light' ? '#77af9c' : 'grey'};
+    color:${(props) => props.theme.theme === 'light' ? 'white' : 'black'};
     transition: 0.3s;
+    white-space:nowrap; 
+    margin-right: 5%;
     :hover{
         cursor: pointer;
         transform:scale(1.1);
-        background-color : ${(props) => props.theme.theme === 'light' ? '#519d9e': '#D3D3D3'};
+        background-color : ${(props) => props.theme.theme === 'light' ? '#519d9e' : '#D3D3D3'};
+    }
+    @media screen and (max-width: 1024px) {
+        /* margin-right: 0; */
+        margin-left: auto;
     }
 `
 const IsInWishList = styled.button`
@@ -84,15 +124,22 @@ const IsInWishList = styled.button`
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     text-decoration: none;
     font-weight: 600;
-    background-color : ${(props) => props.theme.theme === 'light' ? 'tomato': 'navy'};
-    color:${(props) => props.theme.theme === 'light' ? 'white': 'grey'};
+    background-color : ${(props) => props.theme.theme === 'light' ? 'tomato' : 'navy'};
+    color:${(props) => props.theme.theme === 'light' ? 'white' : 'grey'};
     transition: 0.3s;
+    margin-right: 5%;
+    @media screen and (max-width: 1024px) {
+        margin-left: auto;
+    }
 `
 
 const CardTitle = styled.p`
     font-size : 25px;
     font-weight: bold;
-    margin-bottom: 20px;
+    height:15%;
+    p{
+        height:10%;
+    }
 `
 
 export default Card;
