@@ -1,38 +1,27 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import Card from "../components/Card"
 import Pagination from "../components/Pagination";
-import { dbService } from "../fbase";
-import { doc, deleteDoc} from "firebase/firestore";
 import { CommonContainer } from '../style'
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { getWishList } from "../api/getWishList";
+import { useQuery } from "@tanstack/react-query"
+import { getWishList } from "../api/WishList";
 import styled from "styled-components";
 import { usePagination } from "../hook/usePagination";
 
 const WishToGo = () => {
     const { email } = useSelector((state) => state.persistedReducer.authReducer)
     const {page, setPage, offset} = usePagination()
-    const queryClient = useQueryClient()
-    const handleDelete = async (e) => {
-        const okDelete = window.confirm('정말로 삭제하시겠습니까?')
-        if (okDelete) {
-            await deleteDoc(doc(dbService, email, e.docId));
-        }
-    }
     const { data, isLoading } = useQuery(
         ['wishList'], () => getWishList(email)
     )
-    const {mutate} = useMutation(handleDelete,{
-        onSuccess : () => queryClient.invalidateQueries(['wishList'])
-    })
+
     if(isLoading){
         return <div>로딩 중</div>
     }
+    
     return (
         <CommonContainer>
             <WishList>Wish List</WishList>
-            {data.slice(offset, offset + 10).map((data) => <Card data={data} key={data.UC_SEQ} handleDelete={mutate} wish={true} />)}
+            {data.slice(offset, offset + 10).map((data) => <Card info={data} key={data.UC_SEQ} wish={true} />)}
             <footer>
                 <Pagination
                     total={data.length}

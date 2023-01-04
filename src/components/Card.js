@@ -1,31 +1,38 @@
 import { useSelector } from "react-redux"
 import styled from "styled-components";
 import { AddWishList } from "../hook/AddWishList";
-import { useQuery} from "@tanstack/react-query"
-import { getWishList } from "../api/getWishList";
-
-const Card = (props) => {
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { getWishList } from "../api/WishList";
+import { deleteWishListItem } from "../api/WishList";
+const Card = ({info, wish}) => {
     const {email} = useSelector((state) => state.persistedReducer.authReducer)
     const {wishToGoList} = useSelector((state) => state.wishToGoReducer)
     const { data, isLoading } = useQuery(
         ['wishList'], () => getWishList(email)
     )
-    const isInWishList = isLoading ? []: data.filter((el)=>el.UC_SEQ === props.data.UC_SEQ).length
+    const isInWishList = isLoading ? []: data.filter((el)=>el.UC_SEQ === info.UC_SEQ).length
+    const queryClient = useQueryClient()
+    const {mutate} = useMutation(deleteWishListItem,{
+        onSuccess : () => queryClient.invalidateQueries(['wishList'])
+    })
     return(
-        <CardLi key={props.data.UC_SEQ} >
-            <CardImg src={props.data.MAIN_IMG_THUMB} alt={props.data.MAIN_TITLE}/>
+        <CardLi key={info.UC_SEQ} >
+            <CardImg src={info.MAIN_IMG_THUMB} alt={info.MAIN_TITLE}/>
             <CardWrapper>
-                <CardTitle>{props.data.TITLE}</CardTitle>
-                <p>{props.data.ADDR1}</p>
-                <CardP>{props.data.ITEMCNTNTS}</CardP>
+                <CardTitle>{info.TITLE}</CardTitle>
+                <p>{info.ADDR1}</p>
+                <CardP>{info.ITEMCNTNTS}</CardP>
             </CardWrapper>
-            {props.wish ?
-            <CardBtn onClick={()=>props.handleDelete(props.data)}>삭제하기</CardBtn>
+            {wish ?
+            <CardBtn onClick={()=>mutate({
+                email, 
+                docId :info.docId
+            })}>삭제하기</CardBtn>
             :
             isInWishList ?
             <IsInWishList className="isInWishList">저장 완료!</IsInWishList>
             :
-            <CardBtn onClick={()=>AddWishList(email, wishToGoList, props.data)}>가고 싶다</CardBtn>
+            <CardBtn onClick={()=>AddWishList(email, wishToGoList, info)}>가고 싶다</CardBtn>
             }
         </CardLi>
     )
