@@ -18,7 +18,7 @@ const GoToHome = styled(Link)`
     font-size: 50px;
     font-weight: bold;
     text-decoration:none;
-    color:${(props) => props.theme.theme === 'light' ? 'darkslategrey': 'white'};
+    color:${(props) => props.theme.theme === 'light' ? 'darkslategrey': 'grey'};
     @media screen and (max-width: 1024px) {
         font-size: 25px;
 }
