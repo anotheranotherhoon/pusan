@@ -3,8 +3,11 @@ import styled from "styled-components";
 import { AddWishList } from "../hook/AddWishList";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { getWishList, deleteWishListItem } from "../api/WishList";
+import { useModalMap } from "../hook/useModalMap";
+import MapModal from "./MapModal";
 const Card = ({ info, wish }) => {
     const { email } = useSelector((state) => state.persistedReducer.authReducer)
+    const {isModalOpen, showModal, closeModal} = useModalMap()
     const { data, isLoading } = useQuery(
         ['wishList'], () => getWishList(email)
     )
@@ -18,10 +21,11 @@ const Card = ({ info, wish }) => {
             <Wrapper>
             <CardImg src={info.MAIN_IMG_THUMB} alt={info.MAIN_TITLE} />
             <CardWrapper className="inMobileNone">
-                <CardTitle>{info.TITLE}</CardTitle>
+                <CardTitle><a href={`https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=부산+${info.TITLE}`}>{info.TITLE}</a></CardTitle>
                 <p>{info.ADDR1}</p>
                 <CardP>{info.ITEMCNTNTS}</CardP>
             </CardWrapper>
+            <ButtonWrapper>
             {wish ?
                 <CardBtn onClick={() => mutate({
                     email,
@@ -33,12 +37,15 @@ const Card = ({ info, wish }) => {
                     :
                     <CardBtn onClick={() => AddWishList(email, data, info)}>가고 싶다</CardBtn>
             }
+            <CardBtn className="map" onClick={showModal}>지도보기</CardBtn>
+            </ButtonWrapper>
             </Wrapper>
             <CardWrapper className="inWebNone">
-                <CardTitle>{info.TITLE}</CardTitle>
+                <CardTitle><a href={`https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=부산+${info.TITLE}`}>{info.TITLE}</a></CardTitle>
                 <p>{info.ADDR1}</p>
                 <CardP>{info.ITEMCNTNTS}</CardP>
             </CardWrapper>
+            {isModalOpen && <MapModal closeModal={closeModal} latProps={info.LAT} lonProps={info.LNG} name={info.TITLE}/>}
         </CardLi>
     )
 }
@@ -90,6 +97,10 @@ const CardWrapper = styled.div`
     }
     }
 `
+const ButtonWrapper = styled.section`
+    display: flex;
+    flex-direction: column;
+    `
 
 const CardBtn = styled.button`
     padding: 15px 30px;
@@ -105,6 +116,9 @@ const CardBtn = styled.button`
     transition: 0.3s;
     white-space:nowrap; 
     margin-right: 5%;
+    &.map{
+        margin-top: 5px;;
+    }
     :hover{
         cursor: pointer;
         transform:scale(1.1);
@@ -114,6 +128,7 @@ const CardBtn = styled.button`
         /* margin-right: 0; */
         margin-left: auto;
     }
+
 `
 const IsInWishList = styled.button`
     padding: 15px 30px;
@@ -137,6 +152,10 @@ const CardTitle = styled.p`
     font-size : 25px;
     font-weight: bold;
     height:15%;
+    a{
+        text-decoration:none;
+        color:${(props) => props.theme.theme === 'light' ? 'darkslategrey': 'grey'};
+    }
     p{
         height:10%;
     }

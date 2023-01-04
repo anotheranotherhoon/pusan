@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
+import { Map, CustomOverlayMap, MapMarker } from "react-kakao-maps-sdk";
 const KakaoMap = ({latProps, lonProps, name}) => {
   return(
     <MapLayout>
@@ -8,6 +8,22 @@ const KakaoMap = ({latProps, lonProps, name}) => {
       style={{ width: "100%", height: "360px" }}
       level={9}
     >
+              <MapMarker
+        position={{ lat: `${latProps}`, lng: `${lonProps}` }}
+          image={{
+            src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", 
+            size: {
+              width: 64,
+              height: 69,
+            },
+            options: {
+              offset: {
+                x: 27,
+                y: 69,
+              }, 
+            },
+          }}
+        />
       <CustomOverlayMap
         position={{ lat: `${latProps}`, lng: `${lonProps}` }}
         yAnchor={1}
