@@ -13,9 +13,10 @@ const PlaceFilter = (props) => {
 }
 
 const Select = styled.select`
-    margin:2em 0;
+    margin:2rem 0;
     width: 200px;
     border: ${(props) => props.theme.theme === 'light' ? '1px solid #77af9c': '1px solid grey'};
+    color: ${(props) => props.theme.theme === 'light' ? '1px solid #77af9c': '1px solid grey'};
     box-sizing: border-box;
     border-radius: 10px;
     padding: 12px 13px;
