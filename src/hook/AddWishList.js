@@ -1,7 +1,7 @@
 import { collection,addDoc } from "@firebase/firestore";
 import { dbService } from "../fbase";
-export const AddWishList = async(email, wishList, data) => {
-  const check = wishList.filter((el)=>el.UC_SEQ === data.UC_SEQ)
+export const AddWishList = async(email, wishToGoList, data) => {
+  const check = wishToGoList.filter((el)=>el.UC_SEQ === data.UC_SEQ)
   if(check.length>0){
     return alert('이미 저장했습니다.')
   }
