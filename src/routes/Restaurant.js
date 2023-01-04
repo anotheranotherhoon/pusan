@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Card from "../components/Card";
 import Pagination from '../components/Pagination';
-import PlaceFilter from '../components/PlaceFilter';
 import {fetchRestaurant, filterRestaurant} from '../redux/restaurantReducer'
 import { usePagination } from '../hook/usePagination';
 import { CommonContainer } from '../style';
 import { useEffect } from 'react';
 import { getRestaurant } from '../api/getRestaurant';
+import DropDown from '../components/DropDown';
 
 const Restaurant = () => {
     const dispatch = useDispatch();
@@ -15,13 +15,13 @@ const Restaurant = () => {
     },[dispatch])
     const {page, setPage, offset} = usePagination()
     const state = useSelector((state) => state.restaurantReducer)
-    const { restaurantList, filteredRestaurant,optionRestaurant } = state
-    const handleFilter = (event) => {
-        dispatch(filterRestaurant({restaurantList, option : event.target.value}))
+    const { restaurantList, filteredRestaurant, currentFilter } = state
+    const handleFilter = (e) => {
+        dispatch(filterRestaurant({restaurantList, option : e}))
     }
     return (
         <CommonContainer>
-            <PlaceFilter option={optionRestaurant} handleFilter={handleFilter}/>
+            <DropDown  handleFilter={handleFilter} init={currentFilter}/>
             {filteredRestaurant.slice(offset, offset + 10).map((data) => <Card info={data} key={data.UC_SEQ} />)}
             <footer>
                 <Pagination

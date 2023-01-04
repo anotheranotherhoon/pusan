@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getFestival } from '../api/getFestival';
 import Card from "../components/Card"
 import Pagination from '../components/Pagination';
-import PlaceFilter from '../components/PlaceFilter';
 import { usePagination } from '../hook/usePagination';
 import { fetchFestival, filterFestival } from '../redux/festivalReducer';
 import {CommonContainer} from '../style'
-
+import DropDown from '../components/DropDown';
 const Festival = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
@@ -15,14 +14,14 @@ const Festival = () => {
     },[dispatch])
     const {page, setPage, offset} = usePagination()
     const state = useSelector((state) => state.festivalReducer)
-    const { festivalList, filteredFestival,optionFestival } = state
-    const handleFilter = (event) => {
-        dispatch(filterFestival({festivalList, option : event.target.value}))
+    const { festivalList, filteredFestival,optionFestival, currentFilter } = state
+    const handleFilter = (e) => {
+        dispatch(filterFestival({festivalList, option : e}))
     }
     
     return (
         <CommonContainer>
-            <PlaceFilter option={optionFestival} handleFilter={handleFilter}/>
+            <DropDown  handleFilter={handleFilter} init={currentFilter}/>
             {filteredFestival.slice(offset, offset + 10).map((data,key) => <Card info={data} key={data.UC_SEQ}/> )}
             <footer>
                 <Pagination

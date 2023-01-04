@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {VILLAGE_FILLTER_OPTION} from "../util/constValue"
 
 let initialState = {
     restaurantList : [],
     filteredRestaurant : [],
-    optionRestaurant : ["지역을 선택하세요"]
+    optionRestaurant :VILLAGE_FILLTER_OPTION,
+    currentFilter : "지역을 선택하세요"
 }
 
 export const restaurantSlice = createSlice({
@@ -11,9 +13,6 @@ export const restaurantSlice = createSlice({
     initialState,
     reducers: {
         fetchRestaurant : (state, action) => {
-            let options = action.payload.map((el) => el.GUGUN_NM)
-            const set = new Set(options)
-            state.optionRestaurant.push(...set)
             state.restaurantList = action.payload
             state.filteredRestaurant = action.payload
         },
