@@ -14,7 +14,7 @@ const Festival = () => {
     },[dispatch])
     const {page, setPage, offset} = usePagination()
     const state = useSelector((state) => state.festivalReducer)
-    const { festivalList, filteredFestival,optionFestival, currentFilter } = state
+    const { festivalList, filteredFestival, currentFilter } = state
     const handleFilter = (e) => {
         dispatch(filterFestival({festivalList, option : e}))
     }
