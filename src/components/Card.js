@@ -125,7 +125,6 @@ const CardBtn = styled.button`
         background-color : ${(props) => props.theme.theme === 'light' ? '#519d9e' : '#D3D3D3'};
     }
     @media screen and (max-width: 1024px) {
-        /* margin-right: 0; */
         margin-left: auto;
     }
 
@@ -152,6 +151,10 @@ const CardTitle = styled.p`
     font-size : 25px;
     font-weight: bold;
     height:15%;
+    overflow: hidden;  	
+    text-overflow: ellipsis;  
+    white-space: nowrap; 	
+    word-break:break-all;
     a{
         text-decoration:none;
         color:${(props) => props.theme.theme === 'light' ? 'darkslategrey': 'grey'};
