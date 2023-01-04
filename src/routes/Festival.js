@@ -23,7 +23,7 @@ const Festival = () => {
     return (
         <CommonContainer>
             <PlaceFilter option={optionFestival} handleFilter={handleFilter}/>
-            {filteredFestival.slice(offset, offset + 10).map((data,key) => <Card data={data} key={data.UC_SEQ}/> )}
+            {filteredFestival.slice(offset, offset + 10).map((data,key) => <Card info={data} key={data.UC_SEQ}/> )}
             <footer>
                 <Pagination
                     total={filteredFestival.length}

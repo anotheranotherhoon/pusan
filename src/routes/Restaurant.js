@@ -22,7 +22,7 @@ const Restaurant = () => {
     return (
         <CommonContainer>
             <PlaceFilter option={optionRestaurant} handleFilter={handleFilter}/>
-            {filteredRestaurant.slice(offset, offset + 10).map((data) => <Card data={data} key={data.UC_SEQ} />)}
+            {filteredRestaurant.slice(offset, offset + 10).map((data) => <Card info={data} key={data.UC_SEQ} />)}
             <footer>
                 <Pagination
                     total={filteredRestaurant.length}
