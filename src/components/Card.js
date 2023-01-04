@@ -1,10 +1,16 @@
 import { useSelector } from "react-redux"
 import styled from "styled-components";
 import { AddWishList } from "../hook/AddWishList";
+import { useQuery} from "@tanstack/react-query"
+import { getWishList } from "../api/getWishList";
 
 const Card = (props) => {
     const {email} = useSelector((state) => state.persistedReducer.authReducer)
     const {wishToGoList} = useSelector((state) => state.wishToGoReducer)
+    const { data, isLoading } = useQuery(
+        ['wishList'], () => getWishList(email)
+    )
+    const isInWishList = isLoading ? []: data.filter((el)=>el.UC_SEQ === props.data.UC_SEQ).length
     return(
         <CardLi key={props.data.UC_SEQ} >
             <CardImg src={props.data.MAIN_IMG_THUMB} alt={props.data.MAIN_TITLE}/>
@@ -13,9 +19,14 @@ const Card = (props) => {
                 <p>{props.data.ADDR1}</p>
                 <CardP>{props.data.ITEMCNTNTS}</CardP>
             </CardWrapper>
-            {props.wish ? <CardBtn onClick={()=>props.handleDelete(props.data)}>삭제하기</CardBtn>
+            {props.wish ?
+            <CardBtn onClick={()=>props.handleDelete(props.data)}>삭제하기</CardBtn>
             :
-            <CardBtn onClick={()=>AddWishList(email, wishToGoList, props.data)}>가고 싶다</CardBtn>}
+            isInWishList ?
+            <IsInWishList className="isInWishList">저장 완료!</IsInWishList>
+            :
+            <CardBtn onClick={()=>AddWishList(email, wishToGoList, props.data)}>가고 싶다</CardBtn>
+            }
         </CardLi>
     )
 }
@@ -59,6 +70,20 @@ const CardBtn = styled.button`
         background-color : ${(props) => props.theme.theme === 'light' ? '#519d9e': '#D3D3D3'};
     }
 `
+const IsInWishList = styled.button`
+    padding: 15px 30px;
+    border: none;
+    width: 120px;
+    height: 50px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    background-color : ${(props) => props.theme.theme === 'light' ? 'tomato': 'navy'};
+    color:${(props) => props.theme.theme === 'light' ? 'white': 'grey'};
+    transition: 0.3s;
+`
+
 const CardTitle = styled.p`
     font-size : 25px;
     font-weight: bold;
