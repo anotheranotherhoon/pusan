@@ -44,11 +44,7 @@ const MapLayout = styled.div`
 
 `
 const MapSpan = styled.span`
-    background-color : ${(props) => props.currentVillage === props.name ? 'darkslategrey' : 'white'};
-    color :  ${(props) => props.currentVillage === props.name ? 'white' : 'black'};
-    padding: 5%;
-    border-radius: 10px;
-    transition : 0.3s;
+    color: black;
 `
 
 export default KakaoMap
