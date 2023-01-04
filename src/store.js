@@ -3,7 +3,6 @@ import restaurantReducer from "./redux/restaurantReducer";
 import festivalReducer from "./redux/festivalReducer";
 import authReducer from "./redux/authReducer";
 import themeReducer from "./redux/themeReducer"
-import wishToGoReducer from "./redux/wishToGoReducer";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, REHYDRATE, PERSIST,PURGE, } from 'redux-persist'
 
@@ -23,7 +22,6 @@ export const store = configureStore({
         festivalReducer,
         authReducer,
         themeReducer,
-        wishToGoReducer,
         persistedReducer
     },
     middleware: (getDefaultMiddleware) =>

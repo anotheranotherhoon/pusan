@@ -2,11 +2,9 @@ import { useSelector } from "react-redux"
 import styled from "styled-components";
 import { AddWishList } from "../hook/AddWishList";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { getWishList } from "../api/WishList";
-import { deleteWishListItem } from "../api/WishList";
+import { getWishList, deleteWishListItem } from "../api/WishList";
 const Card = ({info, wish}) => {
     const {email} = useSelector((state) => state.persistedReducer.authReducer)
-    const {wishToGoList} = useSelector((state) => state.wishToGoReducer)
     const { data, isLoading } = useQuery(
         ['wishList'], () => getWishList(email)
     )
@@ -32,7 +30,7 @@ const Card = ({info, wish}) => {
             isInWishList ?
             <IsInWishList className="isInWishList">저장 완료!</IsInWishList>
             :
-            <CardBtn onClick={()=>AddWishList(email, wishToGoList, info)}>가고 싶다</CardBtn>
+            <CardBtn onClick={()=>AddWishList(email, data, info)}>가고 싶다</CardBtn>
             }
         </CardLi>
     )
