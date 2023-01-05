@@ -9,9 +9,11 @@ import {CommonContainer} from '../style'
 import DropDown from '../components/DropDown';
 import { useModalMap } from '../hook/useModalMap';
 import MapModal from '../components/MapModal';
+import { test } from '../api/test';
 const Festival = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
+        console.log(test())
         getFestivalInfo().then((res)=>dispatch(fetchFestival(res)))
     },[dispatch])
     const {page, setPage, offset} = usePagination()
