@@ -13,7 +13,8 @@ export const test = async() => {
       }
   })
   const data = response.data.getFestivalKr.item
-  return(data)
+  console.log(data)
+  return data
   }catch(error){
     console.log(error)
   }
