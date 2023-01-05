@@ -12,7 +12,7 @@ export const test = async() => {
           serviceKey : ServiceKey
       }
   })
-  const data = response.data.getFestivalKr.item
+  const data = response
   console.log(data)
   return data
   }catch(error){
