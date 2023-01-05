@@ -1,12 +1,12 @@
 import axios from "axios"
 
 export const getFestivalInfo = async() => {
-  const ServiceKey = process.env.REACT_APP_SERVICE_KEY
+  const ServiceKey = decodeURIComponent(process.env.REACT_APP_SERVICE_KEY)
   if('caches' in window){
     const cacheStorage = await caches.open('festival')
     const cachedResponse = await cacheStorage.match('festival')
     if(!cachedResponse || !cachedResponse.ok){
-      const {data} = await axios.get('/api/6260000/FestivalService/getFestivalKr?',
+      const response = await axios.get('https://apis.data.go.kr/6260000/FestivalService/getFestivalKr?',
       {
         params :
         {
@@ -15,6 +15,7 @@ export const getFestivalInfo = async() => {
             serviceKey : ServiceKey
         }
     })
+    const data = response.data.getFestivalKr.item
       cacheStorage.put('festival', new Response(JSON.stringify(data)))
       return data
     }
