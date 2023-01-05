@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { usePagination } from "../hook/usePagination";
 import { useModalMap } from '../hook/useModalMap';
 import MapModal from '../components/MapModal';
+import LoadingSpinner from '../components/LoadingSpinner'
 
 const WishToGo = () => {
     const { email } = useSelector((state) => state.persistedReducer.authReducer)
@@ -17,7 +18,7 @@ const WishToGo = () => {
         ['wishList'], () => getWishList(email)
     )
     if(isLoading){
-        return <div>로딩 중</div>
+        return <CommonContainer><LoadingSpinner/></CommonContainer>
     }
     
     return (
