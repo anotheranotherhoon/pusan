@@ -7,6 +7,8 @@ import { CommonContainer } from '../style';
 import { useEffect } from 'react';
 import { getRestaurant } from '../api/getRestaurant';
 import DropDown from '../components/DropDown';
+import { useModalMap } from '../hook/useModalMap';
+import MapModal from '../components/MapModal';
 
 const Restaurant = () => {
     const dispatch = useDispatch();
@@ -14,6 +16,7 @@ const Restaurant = () => {
         getRestaurant().then((res)=>dispatch(fetchRestaurant(res)))
     },[dispatch])
     const {page, setPage, offset} = usePagination()
+    const {isModalOpen,showModal, closeModal, latProps, lonProps, name}  = useModalMap()
     const state = useSelector((state) => state.restaurantReducer)
     const { restaurantList, filteredRestaurant, currentFilter } = state
     const handleFilter = (e) => {
@@ -22,7 +25,7 @@ const Restaurant = () => {
     return (
         <CommonContainer>
             <DropDown  handleFilter={handleFilter} init={currentFilter}/>
-            {filteredRestaurant.slice(offset, offset + 10).map((data) => <Card info={data} key={data.UC_SEQ} />)}
+            {filteredRestaurant.slice(offset, offset + 10).map((data) => <Card info={data} key={data.UC_SEQ} showModal={showModal}/>)}
             <footer>
                 <Pagination
                     total={filteredRestaurant.length}
@@ -30,6 +33,7 @@ const Restaurant = () => {
                     page={page}
                     setPage={setPage}/>
             </footer>
+            {isModalOpen && <MapModal closeModal={closeModal} latProps={latProps} lonProps={lonProps} name={name} />}
         </CommonContainer>
     )
 }

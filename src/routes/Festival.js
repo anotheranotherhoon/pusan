@@ -7,12 +7,15 @@ import { usePagination } from '../hook/usePagination';
 import { fetchFestival, filterFestival } from '../redux/festivalReducer';
 import {CommonContainer} from '../style'
 import DropDown from '../components/DropDown';
+import { useModalMap } from '../hook/useModalMap';
+import MapModal from '../components/MapModal';
 const Festival = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
         getFestival().then((res)=>dispatch(fetchFestival(res)))
     },[dispatch])
     const {page, setPage, offset} = usePagination()
+    const {isModalOpen,showModal, closeModal, latProps, lonProps, name}  = useModalMap()
     const state = useSelector((state) => state.festivalReducer)
     const { festivalList, filteredFestival, currentFilter } = state
     const handleFilter = (e) => {
@@ -22,7 +25,7 @@ const Festival = () => {
     return (
         <CommonContainer>
             <DropDown  handleFilter={handleFilter} init={currentFilter}/>
-            {filteredFestival.slice(offset, offset + 10).map((data,key) => <Card info={data} key={data.UC_SEQ}/> )}
+            {filteredFestival.slice(offset, offset + 10).map((data) => <Card info={data} key={data.UC_SEQ} showModal={showModal}/> )}
             <footer>
                 <Pagination
                     total={filteredFestival.length}
@@ -30,6 +33,7 @@ const Festival = () => {
                     page={page}
                     setPage={setPage}/>
             </footer>
+            {isModalOpen && <MapModal closeModal={closeModal} latProps={latProps} lonProps={lonProps} name={name} />}
         </CommonContainer>
     )
 }

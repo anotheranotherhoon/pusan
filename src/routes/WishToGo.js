@@ -6,10 +6,13 @@ import { useQuery } from "@tanstack/react-query"
 import { getWishList } from "../api/WishList";
 import styled from "styled-components";
 import { usePagination } from "../hook/usePagination";
+import { useModalMap } from '../hook/useModalMap';
+import MapModal from '../components/MapModal';
 
 const WishToGo = () => {
     const { email } = useSelector((state) => state.persistedReducer.authReducer)
     const {page, setPage, offset} = usePagination()
+    const {isModalOpen,showModal, closeModal, latProps, lonProps, name}  = useModalMap()
     const { data, isLoading } = useQuery(
         ['wishList'], () => getWishList(email)
     )
@@ -20,7 +23,7 @@ const WishToGo = () => {
     return (
         <CommonContainer>
             <WishList>Wish List</WishList>
-            {data.slice(offset, offset + 10).map((data) => <Card info={data} key={data.UC_SEQ} wish={true} />)}
+            {data.slice(offset, offset + 10).map((data) => <Card info={data} key={data.UC_SEQ} wish={true} showModal={showModal}/>)}
             <footer>
                 <Pagination
                     total={data.length}
@@ -28,6 +31,7 @@ const WishToGo = () => {
                     page={page}
                     setPage={setPage} />
             </footer>
+            {isModalOpen && <MapModal closeModal={closeModal} latProps={latProps} lonProps={lonProps} name={name} />}
         </CommonContainer>
     )
 }

@@ -5,9 +5,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { getWishList, deleteWishListItem } from "../api/WishList";
 import { useModalMap } from "../hook/useModalMap";
 import MapModal from "./MapModal";
-const Card = ({ info, wish }) => {
+const Card = ({ info, wish, showModal  }) => {
     const { email } = useSelector((state) => state.persistedReducer.authReducer)
-    const {isModalOpen, showModal, closeModal} = useModalMap()
     const { data, isLoading } = useQuery(
         ['wishList'], () => getWishList(email)
     )
@@ -37,7 +36,7 @@ const Card = ({ info, wish }) => {
                     :
                     <CardBtn onClick={() => AddWishList(email, data, info)}>가고 싶다</CardBtn>
             }
-            <CardBtn className="map" onClick={showModal}>지도보기</CardBtn>
+            <CardBtn className="map" onClick={()=>showModal(info.LAT, info.LNG, info.TITLE)}>지도보기</CardBtn>
             </ButtonWrapper>
             </Wrapper>
             <CardWrapper className="inWebNone">
@@ -45,7 +44,6 @@ const Card = ({ info, wish }) => {
                 <p>{info.ADDR1}</p>
                 <CardP>{info.ITEMCNTNTS}</CardP>
             </CardWrapper>
-            {isModalOpen && <MapModal closeModal={closeModal} latProps={info.LAT} lonProps={info.LNG} name={info.TITLE}/>}
         </CardLi>
     )
 }
