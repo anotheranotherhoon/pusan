@@ -50,7 +50,8 @@ export const DropDownBtn = styled.button`
     line-height: 16px;
     background: #ffffff;
     border: ${(props) => props.theme.theme === 'light' ? '1px solid #77af9c' : '1px solid grey'};
-    color: ${(props) => props.theme.theme === 'light' ? '1px solid #77af9c' : '1px solid grey'};
+    color: ${(props) => props.theme.theme === 'light' ? 'black' : 'grey'};
+    background-color:  ${(props) => props.theme.theme === 'light' ? 'white' : 'darkslategrey'};
     border-radius: 10px;
     width: 200px;
     padding: 12px 13px;

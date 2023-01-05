@@ -18,8 +18,8 @@ const WeatherContainer = styled.section`
   display:flex;
   padding: 5px;
   transition : 0.3s;
-  background-color : ${(props) => props.currentVillage === props.name ? 'darkslategrey' : 'white'};
-  color :  ${(props) => props.currentVillage === props.name ? 'white' : 'black'};
+  background-color :  ${(props)=>props.theme.theme==='light' ? props.currentVillage === props.name ? 'darkslategrey' : 'white'  : props.currentVillage === props.name ? 'darkslategrey' : 'navy'} ;
+  color :  ${(props)=>props.theme.theme==='light' ? props.currentVillage === props.name ? 'white' : 'black'  : 'grey'} ;
   border-radius: 10px;
   .village{
     font-size: 1.3rem;
