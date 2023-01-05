@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFestival } from '../api/getFestival';
+import { getFestivalInfo } from '../api/getFestivalInfo';
 import Card from "../components/Card"
 import Pagination from '../components/Pagination';
 import { usePagination } from '../hook/usePagination';
@@ -12,7 +12,7 @@ import MapModal from '../components/MapModal';
 const Festival = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
-        getFestival().then((res)=>dispatch(fetchFestival(res)))
+        getFestivalInfo().then((res)=>dispatch(fetchFestival(res)))
     },[dispatch])
     const {page, setPage, offset} = usePagination()
     const {isModalOpen,showModal, closeModal, latProps, lonProps, name}  = useModalMap()

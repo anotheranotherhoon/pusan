@@ -5,7 +5,7 @@ import {fetchRestaurant, filterRestaurant} from '../redux/restaurantReducer'
 import { usePagination } from '../hook/usePagination';
 import { CommonContainer } from '../style';
 import { useEffect } from 'react';
-import { getRestaurant } from '../api/getRestaurant';
+import { getRestaurantInfo } from '../api/getRestaurantInfo';
 import DropDown from '../components/DropDown';
 import { useModalMap } from '../hook/useModalMap';
 import MapModal from '../components/MapModal';
@@ -13,7 +13,7 @@ import MapModal from '../components/MapModal';
 const Restaurant = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
-        getRestaurant().then((res)=>dispatch(fetchRestaurant(res)))
+        getRestaurantInfo().then((res)=>dispatch(fetchRestaurant(res)))
     },[dispatch])
     const {page, setPage, offset} = usePagination()
     const {isModalOpen,showModal, closeModal, latProps, lonProps, name}  = useModalMap()
