@@ -6,7 +6,7 @@ export const getRestaurantInfo = async() => {
     const cacheStorage = await caches.open('restaurant')
     const cachedResponse = await cacheStorage.match('restaurant')
     if(!cachedResponse || !cachedResponse.ok){
-      const response = await axios.get('http://apis.data.go.kr/6260000/FoodService/getFoodKr?',
+      const response = await axios.get('https://apis.data.go.kr/6260000/FoodService/getFoodKr?',
       {
         params :
         {
