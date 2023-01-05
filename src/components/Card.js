@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { AddWishList } from "../hook/AddWishList";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { getWishList, deleteWishListItem } from "../api/WishList";
-import { useModalMap } from "../hook/useModalMap";
-import MapModal from "./MapModal";
 const Card = ({ info, wish, showModal  }) => {
     const { email } = useSelector((state) => state.persistedReducer.authReducer)
     const { data, isLoading } = useQuery(
@@ -136,7 +134,7 @@ const IsInWishList = styled.button`
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     text-decoration: none;
     font-weight: 600;
-    background-color : ${(props) => props.theme.theme === 'light' ? 'tomato' : 'navy'};
+    background-color : ${(props) => props.theme.theme === 'light' ? 'tomato' : 'darkslategrey'};
     color:${(props) => props.theme.theme === 'light' ? 'white' : 'grey'};
     transition: 0.3s;
     margin-right: 5%;
