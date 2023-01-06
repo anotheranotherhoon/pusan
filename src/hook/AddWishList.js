@@ -5,7 +5,6 @@ export const AddWishList = async(email, wishToGoList, data) => {
   if(check.length>0){
     return alert('이미 저장했습니다.')
   }
-  console.log(data)
   await addDoc(collection(dbService, email),{
     UC_SEQ : data.UC_SEQ,
     MAIN_IMG_THUMB : data.MAIN_IMG_THUMB,

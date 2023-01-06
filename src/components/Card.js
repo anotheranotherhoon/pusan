@@ -13,7 +13,7 @@ const Card = ({ info, wish, showModal  }) => {
     const { mutate } = useMutation(deleteWishListItem, {
         onSuccess: () => queryClient.invalidateQueries(['wishList'])
     })
-    console.log(info)
+
     return (
         <CardLi key={info.UC_SEQ} >
             <Wrapper>

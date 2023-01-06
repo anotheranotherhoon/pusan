@@ -11,7 +11,7 @@ const ProfileForm = () => {
 
     const state = useSelector((state) => state.persistedReducer)
     const { token } = state.authReducer
-    console.log(token)
+
     const submitHandler = (event) => {
         event.preventDefault();
 
