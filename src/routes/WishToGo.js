@@ -40,8 +40,9 @@ const WishToGo = () => {
 const WishList = styled.div`
     margin:2rem 0;
     width: 200px;
+    color: ${(props) => props.theme.theme === 'light' ? 'black' : 'grey'};
+    background-color:  ${(props) => props.theme.theme === 'light' ? 'white' : 'darkslategrey'};
     border: ${(props) => props.theme.theme === 'light' ? '1px solid #77af9c' : '1px solid grey'};
-    color: ${(props) => props.theme.theme === 'light' ? '1px solid #77af9c' : '1px solid grey'};
     box-sizing: border-box;
     border-radius: 10px;
     padding: 12px 13px;
