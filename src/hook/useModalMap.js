@@ -5,16 +5,18 @@ export const useModalMap = () => {
   const [latProps, setLatProps] = useState('')
   const [lonProps, setLonProps] = useState('')
   const [name, setName] = useState('')
-  const showModal = (latParam, lonParam, nameParam) => {
+  const [villageName, setVillageName] = useState('')
+  const showModal = (latParam, lonParam, nameParam, villageParam) => {
     setIsModalOpen(true)
     setLatProps(latParam)
     setLonProps(lonParam)
     setName(nameParam)
+    setVillageName(villageParam)
   }
   const closeModal = () => {
     setIsModalOpen(false)
   }
   return{
-    isModalOpen,showModal, closeModal, latProps, lonProps, name
+    isModalOpen,showModal, closeModal, latProps, lonProps, name, villageName
   }
 }

@@ -1,13 +1,20 @@
 import { useRef } from 'react';
 import styled from 'styled-components'
 import KakaoMap from './KakaoMap'
-
-const MapModal = ({ closeModal, latProps, lonProps, name }) => {
+import { useQuery } from "@tanstack/react-query";
+import { getWeatherInfo } from '../api/getWeatherInfo';
+import Weather from './Weather'
+import LoadingIndicator from './LoadingIndicator';
+const MapModal = ({ closeModal, latProps, lonProps, name, villageName }) => {
+  const {data, isLoading} = useQuery([villageName], ()=>getWeatherInfo(villageName, latProps, lonProps))
   const modalRef = useRef(null)
   const cllickBackground = (e) => {
     if (modalRef.current === e.target) {
       closeModal()
     }
+  }
+  if(isLoading){
+    return <LoadingIndicator/>
   }
   return (
     <Container>
@@ -20,6 +27,7 @@ const MapModal = ({ closeModal, latProps, lonProps, name }) => {
             <div><a href={`https://m.map.kakao.com/actions/searchView?q=부산+${name}`}>카카오 지도 바로가기</a></div>
           </MapSection>
           <KakaoMap latProps={latProps} lonProps={lonProps} name={name} />
+          <Weather weatherData={data} currentVillage={name}/>
         </div>
       </ModalBox>
     </Container>

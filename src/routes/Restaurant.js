@@ -16,7 +16,7 @@ const Restaurant = () => {
         getRestaurantInfo().then((res)=>dispatch(fetchRestaurant(res)))
     },[dispatch])
     const {page, setPage, offset} = usePagination()
-    const {isModalOpen,showModal, closeModal, latProps, lonProps, name}  = useModalMap()
+    const {isModalOpen,showModal, closeModal, latProps, lonProps,name,  villageName}  = useModalMap()
     const state = useSelector((state) => state.restaurantReducer)
     const { restaurantList, filteredRestaurant, currentFilter } = state
     const handleFilter = (e) => {
@@ -33,7 +33,7 @@ const Restaurant = () => {
                     page={page}
                     setPage={setPage}/>
             </footer>
-            {isModalOpen && <MapModal closeModal={closeModal} latProps={latProps} lonProps={lonProps} name={name} />}
+            {isModalOpen && <MapModal closeModal={closeModal} latProps={latProps} lonProps={lonProps} name={name} villageName={villageName} />}
         </CommonContainer>
     )
 }

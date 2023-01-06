@@ -13,7 +13,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 const WishToGo = () => {
     const { email } = useSelector((state) => state.persistedReducer.authReducer)
     const {page, setPage, offset} = usePagination()
-    const {isModalOpen,showModal, closeModal, latProps, lonProps, name}  = useModalMap()
+    const {isModalOpen,showModal, closeModal, latProps, lonProps,name, villageName}  = useModalMap()
     const { data, isLoading } = useQuery(
         ['wishList'], () => getWishList(email)
     )
@@ -32,7 +32,7 @@ const WishToGo = () => {
                     page={page}
                     setPage={setPage} />
             </footer>
-            {isModalOpen && <MapModal closeModal={closeModal} latProps={latProps} lonProps={lonProps} name={name} />}
+            {isModalOpen && <MapModal closeModal={closeModal} latProps={latProps} lonProps={lonProps} name={name} villageName={villageName} />}
         </CommonContainer>
     )
 }

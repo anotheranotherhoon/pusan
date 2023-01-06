@@ -13,6 +13,7 @@ const Card = ({ info, wish, showModal  }) => {
     const { mutate } = useMutation(deleteWishListItem, {
         onSuccess: () => queryClient.invalidateQueries(['wishList'])
     })
+    console.log(info)
     return (
         <CardLi key={info.UC_SEQ} >
             <Wrapper>
@@ -34,7 +35,7 @@ const Card = ({ info, wish, showModal  }) => {
                     :
                     <CardBtn onClick={() => AddWishList(email, data, info)}>가고 싶다</CardBtn>
             }
-            <CardBtn className="map" onClick={()=>showModal(info.LAT, info.LNG, info.TITLE)}>지도보기</CardBtn>
+            <CardBtn className="map" onClick={()=>showModal(info.LAT, info.LNG,  info.TITLE, info.GUGUN_NM)}>지도 보기</CardBtn>
             </ButtonWrapper>
             </Wrapper>
             <CardWrapper className="inWebNone">

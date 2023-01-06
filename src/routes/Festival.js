@@ -15,7 +15,7 @@ const Festival = () => {
         getFestivalInfo().then((res)=>dispatch(fetchFestival(res)))
     },[dispatch])
     const {page, setPage, offset} = usePagination()
-    const {isModalOpen,showModal, closeModal, latProps, lonProps, name}  = useModalMap()
+    const {isModalOpen,showModal, closeModal, latProps, lonProps, name, villageName}  = useModalMap()
     const state = useSelector((state) => state.festivalReducer)
     const { festivalList, filteredFestival, currentFilter } = state
     const handleFilter = (e) => {
@@ -33,7 +33,7 @@ const Festival = () => {
                     page={page}
                     setPage={setPage}/>
             </footer>
-            {isModalOpen && <MapModal closeModal={closeModal} latProps={latProps} lonProps={lonProps} name={name} />}
+            {isModalOpen && <MapModal closeModal={closeModal} latProps={latProps} lonProps={lonProps} name={name} villageName={villageName} />}
         </CommonContainer>
     )
 }
