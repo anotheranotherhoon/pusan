@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { convertFahtoCel } from "../util/convertFn"
 
-const weather = ({ weatherData, currentVillage, handleMouseOver }) => {
+const Weather = ({ weatherData, currentVillage, handleMouseOver }) => {
   const CELSIUS = convertFahtoCel(weatherData.data.main.temp)
   return (
     <WeatherContainer currentVillage={currentVillage} name={weatherData.name} onMouseOver={() => handleMouseOver(weatherData.name)}>
@@ -9,7 +9,7 @@ const weather = ({ weatherData, currentVillage, handleMouseOver }) => {
         <div className="village">{weatherData.name}</div>
         <div>현재 기온 {CELSIUS}</div>
       </section>
-      <img src={`http://openweathermap.org/img/w/${weatherData.data.weather[0].icon}.png`} alt={weather.name} />
+      <img src={`http://openweathermap.org/img/w/${weatherData.data.weather[0].icon}.png`} alt={weatherData.name} />
     </WeatherContainer>
   )
 }
@@ -33,4 +33,4 @@ const WeatherContainer = styled.section`
   }
 `
 
-export default weather
+export default Weather
