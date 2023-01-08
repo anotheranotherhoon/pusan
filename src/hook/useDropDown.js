@@ -9,7 +9,7 @@ export const useDropDown = (items, init, setFn) => {
   };
   const handleCurrntIndex = e => {
     setIsDropDownShow(prev => !prev);
-    setSelectedValue(e.target.innerHTML);
+    setSelectedValue(e.target.value);
     setFn(e.target.value);
   };
   return {
