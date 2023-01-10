@@ -10,7 +10,6 @@ const WeatherMap = ({currentVillage, handleMouseOver}) => {
       level={9}
     >
       {VILLAGE.map((village, idx) =>
-        <>
           <CustomOverlayMap
             position={{ lat: `${village.lat}`, lng: `${village.lon}` }}
             yAnchor={1}
@@ -20,7 +19,6 @@ const WeatherMap = ({currentVillage, handleMouseOver}) => {
             <MapSpan className="title" onMouseOver={()=>handleMouseOver(village.name)} currentVillage={currentVillage} name={village.name}>{village.name}</MapSpan>
             </div>
           </CustomOverlayMap>
-        </>
       )}
     </Map>
   </MapLayout>

@@ -20,8 +20,8 @@ const MainPage = () => {
       <Comment>놀러 가기 전 날씨부터 확인!</Comment>
       <WeatherMap currentVillage={currentVillage} handleMouseOver={handleMouseOver}/>
       <GridLayout>
-        {data.map((weather) =>
-          <Weather weatherData={weather} currentVillage={currentVillage} handleMouseOver={handleMouseOver}/>
+        {data.map((weather, key) =>
+          <Weather weatherData={weather} currentVillage={currentVillage} handleMouseOver={handleMouseOver} key={key}/>
         )}
       </GridLayout>
     </CommonContainer>
