@@ -1,34 +1,47 @@
-import { createSlice } from "@reduxjs/toolkit";
-import {VILLAGE_FILLTER_OPTION} from "../util/constValue"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { VILLAGE_FILLTER_OPTION } from "../util/constValue"
+import { getRestaurantInfo } from "../api/getRestaurantInfo";
 
 let initialState = {
-    restaurantList : [],
-    filteredRestaurant : [],
-    optionRestaurant :VILLAGE_FILLTER_OPTION,
-    currentFilter : "지역을 선택하세요"
+    status : null,  
+    restaurantList: [],
+    filteredRestaurant: [],
+    optionRestaurant: VILLAGE_FILLTER_OPTION,
+    currentFilter: "지역을 선택하세요"
 }
+
+export const getRestaurant = createAsyncThunk(
+    'getRestaurant',getRestaurantInfo
+)
+
 
 export const restaurantSlice = createSlice({
     name: 'restaurant',
     initialState,
     reducers: {
-        fetchRestaurant : (state, action) => {
-            state.restaurantList = action.payload
-            state.filteredRestaurant = action.payload
-        },
-        addWishRestaurant : (state, action) => {
-            state.wishTogoList = action.payload
-        },
-        filterRestaurant : (state, action) => {
-            if(action.payload.option==="지역을 선택하세요"){
+        filterRestaurant: (state, action) => {
+            if (action.payload.option === "지역을 선택하세요") {
                 state.filteredRestaurant = action.payload.restaurantList
             }
-            else{
-                state.filteredRestaurant = action.payload.restaurantList.filter((el)=>el.GUGUN_NM===action.payload.option)
+            else {
+                state.filteredRestaurant = action.payload.restaurantList.filter((el) => el.GUGUN_NM === action.payload.option)
             }
         }
+    },
+    extraReducers : (builder) => {
+        builder.addCase(getRestaurant.pending, (state, action)=>{
+            state.status = "Loading"
+        })
+        builder.addCase(getRestaurant.fulfilled, (state, action)=>{
+            state.status = "fulfilled"
+            state.restaurantList = action.payload
+            state.filteredRestaurant = action.payload
+        })
+        builder.addCase(getRestaurant.rejected,(state, action)=>{
+            state.status = "failed"
+        })
     }
 })
 
-export const {fetchRestaurant, addWishRestaurant, filterRestaurant} = restaurantSlice.actions
+export const { fetchRestaurant, addWishRestaurant, filterRestaurant } = restaurantSlice.actions
 export default restaurantSlice.reducer

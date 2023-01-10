@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFestivalInfo } from '../api/getFestivalInfo';
 import Card from "../components/Card"
 import Pagination from '../components/Pagination';
 import { usePagination } from '../hook/usePagination';
-import { fetchFestival, filterFestival } from '../redux/festivalReducer';
+import { filterFestival, getFestival } from '../redux/festivalReducer';
 import {CommonContainer} from '../style'
 import DropDown from '../components/DropDown';
 import { useModalMap } from '../hook/useModalMap';
@@ -12,7 +11,7 @@ import MapModal from '../components/MapModal';
 const Festival = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
-        getFestivalInfo().then((res)=>dispatch(fetchFestival(res)))
+        dispatch(getFestival())
     },[dispatch])
     const {page, setPage, offset} = usePagination()
     const {isModalOpen,showModal, closeModal, latProps, lonProps, name, villageName}  = useModalMap()
