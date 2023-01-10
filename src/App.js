@@ -8,6 +8,8 @@ import Title from './components/Title'
 import ScrollToTop from './components/ScrollToTop';
 import { darkTheme, lightTheme } from './theme/theme';
 import { ThemeProvider } from 'styled-components';
+import { CommonContainer } from './style';
+import LoadingSpinner from'./components/LoadingSpinner';
 function App() {
   const themeState = useSelector((state) => state.persistedReducer.themeReducer)
   const themeObject = themeState.theme === 'light' ? lightTheme : darkTheme;
@@ -18,7 +20,7 @@ function App() {
         <Title />
         <Nav />
         <ScrollToTop />
-        <Suspense fallback={<h1>loading...</h1>}>
+        <Suspense fallback={<CommonContainer><LoadingSpinner/></CommonContainer>}>
           <Router />
         </Suspense>
       </ThemeProvider>
