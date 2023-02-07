@@ -73,7 +73,7 @@
 ### Kakao지도 정보와 실시간 날씨 정보 제공
 * 카카오맵에 있는 행정구역과 날씨 정보를 매핑하고 커서를 올릴 경우 지역의 위치 혹은 날씨를 식별할 수있는 이벤트를 바인딩하였습니다.
 
-### cacheStorage를 불필요한 데이터 전송을 줄임
+### cacheStorage사용을 통해 불필요한 데이터 전송을 줄임
 * 변하지 않는 맛집, 축제 데이터는 cacheStorage에 저장하여 사용합니다.
 
 ### wishToGo 저장 기능
@@ -141,7 +141,9 @@
 ### production
 - react
 - react-query
+- firebase
 - redux-toolkit
+- redux-thunk
 - redux-persist
 - styled-components
 - axios
