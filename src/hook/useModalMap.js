@@ -1,4 +1,3 @@
-import { set } from "firebase/database";
 import { useState } from "react";
 export const useModalMap = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
