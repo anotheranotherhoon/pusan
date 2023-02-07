@@ -15,9 +15,7 @@ interface MapModalProps {
 
 const MapModal = ({ closeModal, latProps, lonProps, name, villageName } : MapModalProps) => {
   const {data} = useQuery([villageName], ()=>getWeatherInfo(villageName, latProps, lonProps),
-  {
-    suspense : true
-})
+  )
   const modalRef = useRef(null)
   const cllickBackground = (e : React.MouseEvent<HTMLDivElement>) => {
     if (modalRef.current === e.target) {
