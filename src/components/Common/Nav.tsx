@@ -2,11 +2,11 @@ import styled from "styled-components"
 import { Link } from "react-router-dom";
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../redux/authReducer";
-import {toggleTheme} from "../redux/themeReducer"
+import { logout } from "../../redux/authReducer";
+import {toggleTheme} from "../../redux/themeReducer"
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import { RootState } from "../store";
+import { RootState } from "../../store";
 
 const NavContainer = styled.ul`
     display:flex;

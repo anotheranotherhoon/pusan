@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
-import Card from "../components/Card";
-import Pagination from '../components/Pagination';
+import Card from "../components/CardPage/Card";
+import Pagination from '../components/CardPage/Pagination';
 import {filterRestaurant, getRestaurant} from '../redux/restaurantReducer'
 import { usePagination } from '../hook/usePagination';
 import { CommonContainer } from '../style';
 import { useEffect } from 'react';
-import DropDown from '../components/DropDown';
+import DropDown from '../components/CardPage/DropDown';
 import { useModalMap } from '../hook/useModalMap';
-import MapModal from '../components/MapModal';
-import LoadingSpinner from '../components/LoadingSpinner'
+import MapModal from '../components/Map/MapModal';
+import LoadingSpinner from '../components/Common/LoadingSpinner'
 import { AppDispatch, RootState } from '../store';
 
 const Restaurant = () => {

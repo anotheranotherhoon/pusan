@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Card from "../components/Card"
-import Pagination from '../components/Pagination';
+import Card from "../components/CardPage/Card"
+import Pagination from '../components/CardPage/Pagination';
 import { usePagination } from '../hook/usePagination';
 import { filterFestival, getFestival } from '../redux/festivalReducer';
 import {CommonContainer} from '../style'
-import DropDown from '../components/DropDown';
+import DropDown from '../components/CardPage/DropDown';
 import { useModalMap } from '../hook/useModalMap';
-import MapModal from '../components/MapModal';
+import MapModal from '../components/Map/MapModal';
 import { AppDispatch, RootState } from '../store';
 const Festival = () => {
     const dispatch = useDispatch<AppDispatch>();

@@ -2,8 +2,8 @@ import { useRef } from 'react';
 import styled from 'styled-components'
 import KakaoMap from './KakaoMap'
 import { useQuery } from "@tanstack/react-query";
-import { getWeatherInfo } from '../api/getWeatherInfo';
-import Weather from './Weather'
+import { getWeatherInfo } from '../../api/getWeatherInfo';
+import Weather from '../Common/Weather'
 
 interface MapModalProps {
   closeModal : ()=>void;

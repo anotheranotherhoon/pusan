@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { convertFahToCel } from "../util/convertFn"
+import { convertFahToCel } from "../../util/convertFn"
 
 interface weatherDataType {
   name : string;

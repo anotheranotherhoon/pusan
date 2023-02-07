@@ -3,13 +3,13 @@ import { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { GlobalStyle } from './theme/GlobalStyle';
 import Router from './Router';
-import Nav from './components/Nav';
-import Title from './components/Title'
-import ScrollToTop from './components/ScrollToTop';
+import Nav from './components/Common/Nav';
+import Title from './components/Common/Title'
+import ScrollToTop from './components/Common/ScrollToTop';
 import { darkTheme, lightTheme } from './theme/theme';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import { CommonContainer } from './style';
-import LoadingSpinner from'./components/LoadingSpinner';
+import LoadingSpinner from'./components/Common/LoadingSpinner';
 import { RootState } from './store';
 function App() {
   const themeState = useSelector((state : RootState) => state.persistedReducer.themeReducer)

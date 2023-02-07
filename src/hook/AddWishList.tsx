@@ -1,26 +1,14 @@
 import { collection,addDoc } from "@firebase/firestore";
 import { dbService } from "../fbase";
-import type {FestivalInfoType} from '../redux/festivalReducer' ;
-import type {RestaurantInfoType} from '../redux/restaurantReducer'
-
-export interface WishToGoListType{
-  ADDR1 : string;
-  GUGUN_NM : string;
-  ITEMCNTNTS : string;
-  LAT : number;
-  LNG : number;
-  MAIN_IMG_THUMB : string;
-  MAIN_TITLE : string;
-  TITLE : string;
-  UC_SEQ : number;
-  docId : string
-}
+import type {FestivalInfoType} from '../types/festivalType' ;
+import type {RestaurantInfoType} from '../types/restaurantType'
+import type {WishToGoListType} from '../types/wishToGoListType'
 
 interface AddWishListParams{
   (email : string, wishToGoList : WishToGoListType[] , data : FestivalInfoType | RestaurantInfoType) : void
 }
 
-export const AddWishList : AddWishListParams = async(email, wishToGoList, data) => {
+export const addWishList : AddWishListParams = async(email, wishToGoList, data) => {
   if(wishToGoList){
     const check = wishToGoList.filter((el : WishToGoListType)=>el.UC_SEQ === data.UC_SEQ)
     if(check.length>0){

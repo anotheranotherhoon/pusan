@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux"
 import styled from "styled-components";
-import { AddWishList } from "../hook/AddWishList";
+import { addWishList } from "../../hook/addWishList";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { getWishList, deleteWishListItem } from "../api/WishList";
-import { RootState } from "../store";
-import type {WishToGoListType} from '../types/List'
+import { getWishList, deleteWishListItem } from "../../api/WishList";
+import { RootState } from "../../store";
+import type {WishToGoListType} from '../../types/wishToGoListType'
 
 interface CardProps {
     info: any;
@@ -45,7 +45,7 @@ const Card = ({ info, wish, showModal} : CardProps) => {
                 isInWishList ?
                     <IsInWishList className="isInWishList">저장 완료!</IsInWishList>
                     :
-                    <CardBtn onClick={() => AddWishList(email, data as WishToGoListType[] , info)}>가고 싶다</CardBtn>
+                    <CardBtn onClick={() => addWishList(email, data as WishToGoListType[] , info)}>가고 싶다</CardBtn>
             }
             <CardBtn className="map" onClick={()=>showModal(info.LAT, info.LNG,  info.TITLE, info.GUGUN_NM)}>지도 보기</CardBtn>
             </ButtonWrapper>

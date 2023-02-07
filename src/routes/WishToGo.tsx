@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
-import Card from "../components/Card"
-import Pagination from "../components/Pagination";
+import Card from "../components/CardPage/Card"
+import Pagination from "../components/CardPage/Pagination";
 import { CommonContainer } from '../style'
 import { useQuery } from "@tanstack/react-query"
 import { getWishList } from "../api/WishList";
 import styled from "styled-components";
 import { usePagination } from "../hook/usePagination";
 import { useModalMap } from '../hook/useModalMap';
-import MapModal from '../components/MapModal';
+import MapModal from '../components/Map/MapModal';
 import { RootState } from "../store";
 
 const WishToGo = () => {

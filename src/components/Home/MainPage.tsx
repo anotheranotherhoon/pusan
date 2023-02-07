@@ -1,11 +1,11 @@
 
 import { useQuery } from "@tanstack/react-query"
-import Weather from "./Weather"
+import Weather from "../Common/Weather"
 import styled from "styled-components"
-import { CommonContainer } from "../style"
-import { useMouseOver } from "../hook/useMouseOver"
-import WeatherMap from "./WeatherMap"
-import { fetchWeather } from "../api/getWeatherInfo"
+import { CommonContainer } from "../../style"
+import { useMouseOver } from "../../hook/useMouseOver"
+import WeatherMap from "../Map/WeatherMap"
+import { fetchWeather } from "../../api/getWeatherInfo"
 const MainPage = () => {
   const {currentVillage, handleMouseOver} = useMouseOver()
   const { data } = useQuery(

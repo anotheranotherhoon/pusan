@@ -1,5 +1,5 @@
 import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
-import { VILLAGE } from "../util/constValue"
+import { VILLAGE } from "../../util/constValue"
 import styled from "styled-components"
 
 interface WeatherMapProps {

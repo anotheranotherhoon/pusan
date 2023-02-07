@@ -2,8 +2,8 @@ import styled from "styled-components"
 import React, { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
-import { logout } from "../redux/authReducer";
-import { RootState } from "../store";
+import { logout } from "../../redux/authReducer";
+import { RootState } from "../../store";
 const ProfileForm = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()

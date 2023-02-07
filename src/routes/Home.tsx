@@ -1,7 +1,7 @@
 import React from "react"
 import { useSelector } from "react-redux"
-import AuthForm from "../components/AuthForm"
-import MainPage from "../components/MainPage"
+import AuthForm from "../components/Home/AuthForm"
+import MainPage from "../components/Home/MainPage"
 import { RootState } from "../store"
 
 const Home = () => {

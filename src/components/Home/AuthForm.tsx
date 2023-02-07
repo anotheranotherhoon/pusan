@@ -1,8 +1,8 @@
 import { useState, useRef } from "react"
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import LoadingInicator from "./LoadingIndicator"
-import {login} from "../redux/authReducer"
+import LoadingInicator from "../Common/LoadingIndicator"
+import {login} from "../../redux/authReducer"
 
 
 const AuthForm = () => {
