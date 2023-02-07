@@ -8,7 +8,7 @@ interface AddWishListParams{
   (email : string, wishToGoList : WishToGoListType[] , data : FestivalInfoType | RestaurantInfoType) : void
 }
 
-export const addWishList : AddWishListParams = async(email, wishToGoList, data) => {
+export const AddWishList : AddWishListParams = async(email, wishToGoList, data) => {
   if(wishToGoList){
     const check = wishToGoList.filter((el : WishToGoListType)=>el.UC_SEQ === data.UC_SEQ)
     if(check.length>0){
