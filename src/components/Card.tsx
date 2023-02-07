@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux"
 import styled from "styled-components";
-import { AddWishList, WishToGoListType } from "../hook/AddWishList";
+import { AddWishList } from "../hook/AddWishList";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { getWishList, deleteWishListItem } from "../api/WishList";
 import { RootState } from "../store";
+import type {WishToGoListType} from '../types/List'
 
 interface CardProps {
     info: any;
@@ -14,7 +15,10 @@ interface CardProps {
 const Card = ({ info, wish, showModal} : CardProps) => {
     const { email } = useSelector((state : RootState) => state.persistedReducer.authReducer)
     const { data, isLoading } = useQuery(
-        ['wishList'], () => getWishList(email)
+        ['wishList'], () => getWishList(email),
+        {
+            suspense : true
+        }
     )
     const isInWishList = isLoading ? [] : data!.filter((el) => el.UC_SEQ === info.UC_SEQ).length
     const queryClient = useQueryClient()

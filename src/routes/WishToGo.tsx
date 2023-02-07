@@ -15,7 +15,10 @@ const WishToGo = () => {
     const { page, setPage, offset } = usePagination()
     const { isModalOpen, showModal, closeModal, latProps, lonProps, name, villageName } = useModalMap()
     const { data } = useQuery(
-        ['wishList'], () => getWishList(email)
+        ['wishList'], () => getWishList(email),
+        {
+            suspense : true
+        }
     )
     return (
         <CommonContainer>

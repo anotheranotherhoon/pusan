@@ -6,15 +6,13 @@ import { CommonContainer } from "../style"
 import { useMouseOver } from "../hook/useMouseOver"
 import WeatherMap from "./WeatherMap"
 import { fetchWeather } from "../api/getWeatherInfo"
-import LoadingSpinner from './LoadingSpinner'
 const MainPage = () => {
   const {currentVillage, handleMouseOver} = useMouseOver()
-  const { data, isLoading } = useQuery(
-    ['weather'], fetchWeather
-  )
-  if (isLoading) {
-    return <CommonContainer><LoadingSpinner/></CommonContainer>
+  const { data } = useQuery(
+    ['weather'], fetchWeather,{
+      suspense : true
   }
+  )
   return (
     <CommonContainer>
       <Comment>놀러 가기 전 날씨부터 확인!</Comment>
