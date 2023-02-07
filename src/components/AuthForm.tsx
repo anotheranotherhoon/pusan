@@ -10,8 +10,8 @@ const AuthForm = () => {
     const dispatch = useDispatch();
     const emailInputRef = useRef<HTMLInputElement | null >(null);
     const passwordInputRef = useRef<HTMLInputElement | null >(null);
-    const [isLogin, setIsLogin] = useState(true)
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLogin, setIsLogin] = useState<boolean>(true)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState)
     }
