@@ -1,16 +1,15 @@
 import styled from "styled-components"
 import React, { useRef } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/authReducer";
-import { RootState } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../hook/reduxHook";
 const ProfileForm = () => {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const firebaseKey = process.env.REACT_APP_FIREBASE_KEY
     const newPasswordInputRef = useRef<HTMLInputElement | null >(null)
 
-    const state = useSelector((state : RootState) => state.persistedReducer)
+    const state = useAppSelector((state) => state.persistedReducer)
     const { token } = state.authReducer
 
     const submitHandler = (event : React.FormEvent<HTMLFormElement>) => {

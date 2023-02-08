@@ -1,52 +1,19 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom";
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
-import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/authReducer";
 import {toggleTheme} from "../../redux/themeReducer"
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import { RootState } from "../../store";
+import { useAppDispatch, useAppSelector } from '../../hook/reduxHook';
 
-const NavContainer = styled.ul`
-    display:flex;
-    flex-direction: row-reverse;
-    width:100%;
-    height: 4rem;
-    margin : 0;
-    padding: 0 3em;
-    background-color: darkslategrey;
-    list-style-type: none;
-    align-items:center;
-    @media screen and (max-width: 1024px) {
-        padding:0;
-    } 
-
-
-`
-const NavItem = styled.li`
-    padding: 15px;
-    margin-left: 5px;
-    color: white;
-    cursor: pointer;
-`
-const LinkTo = styled(Link)`
-    color: inherit;
-    text-decoration:none;
-    text-align:center;
-`
-const LogoutBtn = styled.div`
-    color: inherit;
-    text-decoration:none;
-    text-align:center;
-`
 
 const Nav = () => {
     const navigate = useNavigate()
-    const state = useSelector((state : RootState) => state.persistedReducer)
+    const state = useAppSelector((state) => state.persistedReducer)
     const {theme} = state.themeReducer
     const { isLoggedIn} = state.authReducer
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const handleToggleTheme = () => {
         dispatch(toggleTheme())
     }
@@ -69,5 +36,36 @@ const Nav = () => {
         </NavContainer>
     )
 }
+
+const NavContainer = styled.ul`
+    display:flex;
+    flex-direction: row-reverse;
+    width:100%;
+    height: 4rem;
+    margin : 0;
+    padding: 0 3em;
+    background-color: darkslategrey;
+    list-style-type: none;
+    align-items:center;
+    @media screen and (max-width: 1024px) {
+        padding:0;
+    } 
+`
+const NavItem = styled.li`
+    padding: 15px;
+    margin-left: 5px;
+    color: white;
+    cursor: pointer;
+`
+const LinkTo = styled(Link)`
+    color: inherit;
+    text-decoration:none;
+    text-align:center;
+`
+const LogoutBtn = styled.div`
+    color: inherit;
+    text-decoration:none;
+    text-align:center;
+`
 
 export default Nav

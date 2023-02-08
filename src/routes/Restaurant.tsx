@@ -9,16 +9,15 @@ import DropDown from '../components/CardPage/DropDown';
 import { useModalMap } from '../hook/useModalMap';
 import MapModal from '../components/Map/MapModal';
 import LoadingSpinner from '../components/Common/LoadingSpinner'
-import { AppDispatch, RootState } from '../store';
-
+import { useAppDispatch, useAppSelector } from '../hook/reduxHook';
 const Restaurant = () => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     useEffect(()=>{
         dispatch(getRestaurant())
     },[dispatch])
     const {page, setPage, offset} = usePagination()
     const {isModalOpen,showModal, closeModal, latProps, lonProps,name,  villageName}  = useModalMap()
-    const state = useSelector((state : RootState) => state.restaurantReducer)
+    const state = useAppSelector((state) => state.restaurantReducer)
     const { status, restaurantList, filteredRestaurant, currentFilter } = state
     const handleFilter = (option : string) => {
         dispatch(filterRestaurant({restaurantList, option}))

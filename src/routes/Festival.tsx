@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import Card from "../components/CardPage/Card"
 import Pagination from '../components/CardPage/Pagination';
 import { usePagination } from '../hook/usePagination';
@@ -8,15 +7,15 @@ import {CommonContainer} from '../style'
 import DropDown from '../components/CardPage/DropDown';
 import { useModalMap } from '../hook/useModalMap';
 import MapModal from '../components/Map/MapModal';
-import { AppDispatch, RootState } from '../store';
+import { useAppDispatch, useAppSelector } from '../hook/reduxHook';
 const Festival = () => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     useEffect(()=>{
         dispatch(getFestival())
     },[dispatch])
     const {page, setPage, offset} = usePagination()
     const {isModalOpen,showModal, closeModal, latProps, lonProps, name, villageName}  = useModalMap()
-    const state = useSelector((state : RootState) => state.festivalReducer)
+    const state = useAppSelector((state) => state.festivalReducer)
     const { festivalList, filteredFestival, currentFilter } = state
     const handleFilter = (option : string) => {
         dispatch(filterFestival({festivalList, option}))
