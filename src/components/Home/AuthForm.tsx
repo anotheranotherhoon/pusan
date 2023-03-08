@@ -1,71 +1,24 @@
-import { useState, useRef } from "react"
-import { useDispatch } from "react-redux";
+import React, { useRef } from "react"
 import styled from "styled-components";
 import LoadingInicator from "../Common/LoadingIndicator"
-import {login} from "../../redux/authReducer"
-import axios from "axios";
+import { useAuth } from "../../hook/useAuth";
 
 
 const AuthForm = () => {
-    const firebaseKey = process.env.REACT_APP_FIREBASE_KEY
-    const TEST_EMAIL = process.env.REACT_APP_TEST_EMAIL
-    const TEST_PW = process.env.REACT_APP_TEST_PW
-    const dispatch = useDispatch();
-    const emailInputRef = useRef<HTMLInputElement | null >(null);
-    const passwordInputRef = useRef<HTMLInputElement | null >(null);
-    const [isLogin, setIsLogin] = useState<boolean>(true)
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-    const switchAuthModeHandler = () => {
-        setIsLogin((prevState) => !prevState)
+    const TEST_EMAIL = process.env.REACT_APP_TEST_EMAIL as string
+    const TEST_PW = process.env.REACT_APP_TEST_PW as string
+    const emailInputRef = useRef<HTMLInputElement | null>(null);
+    const passwordInputRef = useRef<HTMLInputElement | null>(null);
+    const {isLogin, isLoading, switchAuthModeHandler, submit} = useAuth()
+    const guestLogin = async () => {
+        submit(TEST_EMAIL, TEST_PW)
     }
-    const guestLogin = async() => {
-        setIsLoading(true)
-        try{
-            const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseKey}`,{
-                email : TEST_EMAIL,
-                password: TEST_PW,
-                returnSecureToken: true,
-            })
-            dispatch(login({idToken : response.data.idToken,  email : response.data.email}))
-        }
-        catch(err){
-            alert(err.message)
-        }
-        finally{
-            setIsLoading(false)
-        }
-    }
-    const submitHandler = async(event : React.FormEvent<HTMLFormElement>) => {
+    const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const enteredEmail = emailInputRef.current!.value;
         const enteredPassword = passwordInputRef.current!.value;
-        setIsLoading(true)
-        let url;
-        if (isLogin) {
-            url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseKey}`
-        } else {
-            url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseKey}`
-        }
-        try{
-            const response = await axios.post(url,{
-                email: enteredEmail,
-                password: enteredPassword,
-                returnSecureToken: true,
-            })
-            if(isLogin){
-                dispatch(login({idToken : response.data.idToken,  email : response.data.email}))
-            }else{
-                alert('회원가입에 성공하셨습니다')
-                setIsLogin(true)
-            }
-        }catch(err){
-            alert(err.message)
-        }finally{
-            setIsLoading(false)
-        }
+        submit(enteredEmail, enteredPassword)
     }
-
-
     return (
         <AuthSection>
             <AuthTitle>{isLogin ? '로그인' : '회원가입'}</AuthTitle>
@@ -79,20 +32,27 @@ const AuthForm = () => {
                     <input type='password' id='password' ref={passwordInputRef} required />
                 </AuthControl>
                 <AuthActions>
-                {isLogin && 
-                <button type='button' onClick={guestLogin}>
-                        게스트 로그인
-                    </button>
-                    }
-                    {!isLoading && (
-                    <button>{isLogin ? '로그인' : '계정 생성'}</button>
-                    )}
                     {
-                    isLoading && 
-                    <LoadingInicator></LoadingInicator>}
-                    <button type='button' onClick={switchAuthModeHandler}>
-                        {isLogin ? '회원가입' : '기존 계정으로 로그인 하기'}
-                    </button>
+                        isLoading ? <LoadingInicator /> : (
+                            isLogin ?
+                                <React.Fragment>
+                                    <button type='button' onClick={guestLogin}>
+                                        게스트 로그인
+                                    </button>
+                                    <button>로그인</button>
+                                    <button type='button' onClick={switchAuthModeHandler}>
+                                        새 계정 만들기
+                                    </button>
+                                </React.Fragment>
+                                :
+                                <React.Fragment>
+                                    <button>계정 생성</button>
+                                    <button type='button' onClick={switchAuthModeHandler}>
+                                        로그인하러 가기
+                                    </button>
+                                </React.Fragment>
+                        )
+                    }
                 </AuthActions>
             </form>
         </AuthSection>
@@ -105,28 +65,31 @@ const AuthSection = styled.section`
     max-width: 25rem;
     border-radius: 6px;
     background: ${(props) => props.theme.theme === 'light' ? 'darkslategrey' : 'grey'};
-    color:${(props) => props.theme.theme  === 'light' ? 'white' : 'black'};
+    color:${(props) => props.theme.theme === 'light' ? 'white' : 'black'};
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     padding: 1rem;
-    text-align: center;
 `
 const AuthTitle = styled.h1`
     text-align: center;
-    color:${(props) => props.theme.theme  === 'light' ? 'white' : 'black'};
+    font-size: 1.5rem;
+    color:${(props) => props.theme.theme === 'light' ? 'white' : 'black'};
+    margin-bottom: 5%;
 `
 
 const AuthControl = styled.div`
     margin-bottom: 0.5rem;
+    
     label{
         display: block;
-        color:${(props) => props.theme.theme  === 'light' ? 'white' : 'black'};
+        color:${(props) => props.theme.theme === 'light' ? 'white' : 'black'};
         font-weight: bold;
-        margin-bottom: 0.5rem;
+        margin-bottom: 5%;
     }
     input{
         font: inherit;
         background-color: lightgray;
-        color:${(props) => props.theme.theme  === 'light' ? 'white' : 'black'};
+        color:${(props) => props.theme.theme === 'light' ? 'white' : 'black'};
+        margin-bottom: 2%;
         border-radius: 4px;
         border: 1px solid white;
         width: 100%;
@@ -142,8 +105,9 @@ const AuthActions = styled.div`
     button{
         cursor: pointer;
         font: inherit;
-        color:${(props) => props.theme.theme  === 'light' ? 'white' : 'black'};
-        background: ${(props) => props.theme.theme  === 'light' ? '#489572' : 'grey'};
+        color:${(props) => props.theme.theme === 'light' ? 'white' : 'black'};
+        background: ${(props) => props.theme.theme === 'light' ? '#489572' : 'grey'};
+        width : 100%;
         border: 1px solid white;
         border-radius: 4px;
         padding: 0.5rem 2.5rem;
@@ -156,7 +120,7 @@ const AuthActions = styled.div`
     .toggle{
         margin-top: 1rem;
         background-color: transparent;
-        color:${(props) => props.theme.theme  === 'light' ? 'white' : 'black'};
+        color:${(props) => props.theme.theme === 'light' ? 'white' : 'black'};
         border: none;
         padding: 0.15rem 1.5rem;
         &:hover{
