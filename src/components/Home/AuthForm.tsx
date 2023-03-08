@@ -3,10 +3,13 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import LoadingInicator from "../Common/LoadingIndicator"
 import {login} from "../../redux/authReducer"
+import axios from "axios";
 
 
 const AuthForm = () => {
     const firebaseKey = process.env.REACT_APP_FIREBASE_KEY
+    const TEST_EMAIL = process.env.REACT_APP_TEST_EMAIL
+    const TEST_PW = process.env.REACT_APP_TEST_PW
     const dispatch = useDispatch();
     const emailInputRef = useRef<HTMLInputElement | null >(null);
     const passwordInputRef = useRef<HTMLInputElement | null >(null);
@@ -14,6 +17,23 @@ const AuthForm = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState)
+    }
+    const guestLogin = async() => {
+        setIsLoading(true)
+        try{
+            const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseKey}`,{
+                email : TEST_EMAIL,
+                password: TEST_PW,
+                returnSecureToken: true,
+            })
+            dispatch(login({idToken : response.data.idToken,  email : response.data.email}))
+        }
+        catch(err){
+            alert(err.message)
+        }
+        finally{
+            setIsLoading(false)
+        }
     }
     const submitHandler = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -26,10 +46,7 @@ const AuthForm = () => {
         } else {
             url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseKey}`
         }
-        fetch(
-            url,
-            {
-                method: 'POST',
+        fetch(url,{method: 'POST',
                 body: JSON.stringify({
                     email: enteredEmail,
                     password: enteredPassword,
@@ -75,6 +92,11 @@ const AuthForm = () => {
                     <input type='password' id='password' ref={passwordInputRef} required />
                 </AuthControl>
                 <AuthActions>
+                {isLogin && 
+                <button type='button' onClick={guestLogin}>
+                        게스트 로그인
+                    </button>
+                    }
                     {!isLoading && (
                     <button>{isLogin ? '로그인' : '계정 생성'}</button>
                     )}
