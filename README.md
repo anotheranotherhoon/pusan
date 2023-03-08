@@ -141,6 +141,7 @@
 ### production
 - react
 - react-query
+- typeScript
 - firebase
 - redux-toolkit
 - redux-thunk
