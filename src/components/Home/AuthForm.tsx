@@ -35,7 +35,7 @@ const AuthForm = () => {
             setIsLoading(false)
         }
     }
-    const submitHandler = (event : React.FormEvent<HTMLFormElement>) => {
+    const submitHandler = async(event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const enteredEmail = emailInputRef.current!.value;
         const enteredPassword = passwordInputRef.current!.value;
@@ -46,37 +46,24 @@ const AuthForm = () => {
         } else {
             url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseKey}`
         }
-        fetch(url,{method: 'POST',
-                body: JSON.stringify({
-                    email: enteredEmail,
-                    password: enteredPassword,
-                    returnSecureToken: true,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+        try{
+            const response = await axios.post(url,{
+                email: enteredEmail,
+                password: enteredPassword,
+                returnSecureToken: true,
+            })
+            if(isLogin){
+                dispatch(login({idToken : response.data.idToken,  email : response.data.email}))
+            }else{
+                alert('회원가입에 성공하셨습니다')
+                setIsLogin(true)
             }
-        ).then((res) => {
-            setIsLoading(false)
-            if (res.ok) {
-                return res.json();
-            } else {
-                return res.json().then((data) => {
-                    let errorMessage = 'Authentication failed!';
-                    if(data && data.error && data.error.message){
-                        errorMessage = data.error.message
-                    }
-                    throw new Error(errorMessage);
-                });
-            }
-        }).then(data => {
-            const expirationTime = new Date(new Date().getTime() + (+data.expiresIn * 1000))
-            dispatch(login({idToken : data.idToken, expirationTime : expirationTime.toISOString(), email : data.email}))
-        })
-        .catch(err => {
+        }catch(err){
             alert(err.message)
-        })
-    };
+        }finally{
+            setIsLoading(false)
+        }
+    }
 
 
     return (
