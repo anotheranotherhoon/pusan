@@ -2,9 +2,9 @@ import { createGlobalStyle } from "styled-components";
 import reset from 'styled-reset'
 declare module "styled-components" {
     export interface DefaultTheme {
-        theme ? : string;
-        bgColor : string;
-        textColor : string;
+        theme?: string;
+        bgColor: string;
+        textColor: string;
         borderColor: string;
     }
 }

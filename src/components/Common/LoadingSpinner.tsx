@@ -1,6 +1,6 @@
-import styled from "styled-components"
-import { Oval } from 'react-loader-spinner'
-import React from "react"
+import styled from "styled-components";
+import { Oval } from "react-loader-spinner";
+import React from "react";
 const InfoScreen = () => {
   return (
     <React.Fragment>
@@ -10,7 +10,7 @@ const InfoScreen = () => {
           width={80}
           color="#5160EA"
           visible={true}
-          ariaLabel='oval-loading'
+          ariaLabel="oval-loading"
           secondaryColor="#468FF7"
           strokeWidth={2}
           strokeWidthSecondary={2}
@@ -18,21 +18,20 @@ const InfoScreen = () => {
         <div>로딩 중입니다.</div>
       </LoadingLayout>
     </React.Fragment>
-  )
-}
+  );
+};
 
 const LoadingLayout = styled.section`
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   text-align: center;
   font-size: 20px;
-  height:80vh;
-  flex-direction:column;
-  div{
+  height: 80vh;
+  flex-direction: column;
+  div {
     margin-top: 5%;
   }
-`
+`;
 
-
-export default InfoScreen
+export default InfoScreen;

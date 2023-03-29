@@ -1,52 +1,69 @@
 import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
-import { VILLAGE } from "../../util/constValue"
-import styled from "styled-components"
+import { VILLAGE } from "../../util/constValue";
+import styled from "styled-components";
 
 interface WeatherMapProps {
-  currentVillage : string;
-  handleMouseOver : (village: string)=>void
+  currentVillage: string;
+  handleMouseOver: (village: string) => void;
 }
 
-const WeatherMap = ({currentVillage, handleMouseOver} : WeatherMapProps) => {
-  return(
+const WeatherMap = ({ currentVillage, handleMouseOver }: WeatherMapProps) => {
+  return (
     <MapLayout>
-    <Map
-      center={{ lat: 35.189, lng: 129.07573898218627 }}
-      style={{ width: "100%", height: "360px" }}
-      level={9}
-    >
-      {VILLAGE.map((village, idx) =>
+      <Map
+        center={{ lat: 35.189, lng: 129.07573898218627 }}
+        style={{ width: "100%", height: "360px" }}
+        level={9}
+      >
+        {VILLAGE.map((village, idx) => (
           <CustomOverlayMap
             position={{ lat: village.lat, lng: village.lon }}
             yAnchor={1}
             key={idx}
           >
             <div className="customoverlay">
-            <MapSpan className="title" onMouseOver={()=>handleMouseOver(village.name)} currentVillage={currentVillage} name={village.name}>{village.name}</MapSpan>
+              <MapSpan
+                className="title"
+                onMouseOver={() => handleMouseOver(village.name)}
+                currentVillage={currentVillage}
+                name={village.name}
+              >
+                {village.name}
+              </MapSpan>
             </div>
           </CustomOverlayMap>
-      )}
-    </Map>
-  </MapLayout>
-  )
-}
+        ))}
+      </Map>
+    </MapLayout>
+  );
+};
 
 const MapLayout = styled.div`
-  width:100%;
-  height:100%;
-
-`
+  width: 100%;
+  height: 100%;
+`;
 interface MapSpanProps {
-  currentVillage : string;
-  name : string;
+  currentVillage: string;
+  name: string;
 }
-const MapSpan =styled.span<MapSpanProps>`
-  background-color :  ${(props)=>props.theme.theme==='light' ? props.currentVillage === props.name ? 'darkslategrey' : 'white'  : props.currentVillage === props.name ? 'darkslategrey' : 'navy'} ;
-  color :  ${(props)=>props.theme.theme==='light' ? props.currentVillage === props.name ? 'white' : 'black'  : 'grey'} ;
-    padding: 5%;
-    border-radius: 10px;
-    transition : 0.3s;
-`
+const MapSpan = styled.span<MapSpanProps>`
+  background-color: ${(props) =>
+    props.theme.theme === "light"
+      ? props.currentVillage === props.name
+        ? "darkslategrey"
+        : "white"
+      : props.currentVillage === props.name
+      ? "darkslategrey"
+      : "navy"};
+  color: ${(props) =>
+    props.theme.theme === "light"
+      ? props.currentVillage === props.name
+        ? "white"
+        : "black"
+      : "grey"};
+  padding: 5%;
+  border-radius: 10px;
+  transition: 0.3s;
+`;
 
-
-export default WeatherMap
+export default WeatherMap;
