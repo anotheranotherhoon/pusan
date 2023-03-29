@@ -54,6 +54,10 @@
     ]
   },
   "devDependencies": {
-    "http-proxy-middleware": "^2.0.6"
+    "@types/eslint": "^8.21.3",
+    "@types/prettier": "^2.7.2",
+    "eslint": "^8.37.0",
+    "http-proxy-middleware": "^2.0.6",
+    "prettier": "^2.8.7"
   }
 }
