@@ -1,11 +1,11 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Home from './routes/Home';
-import Restaurant from './routes/Restaurant';
-import Festival from './routes/Festival';
-import WishToGo from './routes/WishToGo';
-import { useSelector } from 'react-redux';
-import React from 'react';
-import { RootState } from './store';
+import { Routes, Route, Navigate } from "react-router-dom";
+import Home from "./routes/Home";
+import Restaurant from "./routes/Restaurant";
+import Festival from "./routes/Festival";
+import WishToGo from "./routes/WishToGo";
+import { useSelector } from "react-redux";
+import React from "react";
+import { RootState } from "./store";
 
 const Router = () => {
   const { isLoggedIn } = useSelector(
@@ -13,15 +13,15 @@ const Router = () => {
   );
   return (
     <Routes>
-      <Route path='/' element={<Home />} />
+      <Route path="/" element={<Home />} />
       {isLoggedIn && (
         <React.Fragment>
-          <Route path='/restaurant' element={<Restaurant />} />
-          <Route path='/festival' element={<Festival />} />
-          <Route path='/wishtogo' element={<WishToGo />} />
+          <Route path="/restaurant" element={<Restaurant />} />
+          <Route path="/festival" element={<Festival />} />
+          <Route path="/wishtogo" element={<WishToGo />} />
         </React.Fragment>
       )}
-      <Route path='*' element={<Navigate replace to='/' />} />
+      <Route path="*" element={<Navigate replace to="/" />} />
     </Routes>
   );
 };

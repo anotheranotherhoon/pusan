@@ -1,13 +1,13 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import restaurantReducer from './redux/restaurantReducer';
-import festivalReducer from './redux/festivalReducer';
-import authReducer from './redux/authReducer';
-import themeReducer from './redux/themeReducer';
-import storage from 'redux-persist/lib/storage';
-import { persistReducer, REHYDRATE, PERSIST, PURGE } from 'redux-persist';
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import restaurantReducer from "./redux/restaurantReducer";
+import festivalReducer from "./redux/festivalReducer";
+import authReducer from "./redux/authReducer";
+import themeReducer from "./redux/themeReducer";
+import storage from "redux-persist/lib/storage";
+import { persistReducer, REHYDRATE, PERSIST, PURGE } from "redux-persist";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
 };
 
